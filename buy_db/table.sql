@@ -7,7 +7,7 @@ create table companys
   tele            varchar(32)  default '' not null,
   detail          varchar(512) default '' not null,
   production_kind varchar(256) default '' not null,
-  type            tinyint  default 0,
+  type            varchar(256)  default '' not null,
   created_at      TIMESTAMP    default NULL,
   updated_at      TIMESTAMP    default NULL,
   deleted_at      TIMESTAMP    default NULL,
@@ -32,7 +32,7 @@ create table results
   id              INTEGER not null
     primary key,
   company_id      int not null,
-  kind            tinyint      default 0 not null,
+  type            varchar(32)  default '' not null,
   production_type varchar(32)  default '' not null,
   created_at      TIMESTAMP    default NULL,
   updated_at      TIMESTAMP    default NULL,
