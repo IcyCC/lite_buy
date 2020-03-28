@@ -10,12 +10,12 @@ class Config:
     # MYSQL_DATABASE = 'AiTx'  # 数据库名称
 
     SQLITE_FILE = os.path.abspath('./buy.sqlite')
-    STATIC_IMAGE_PATH = os.path.abspath('static')
-    UPLOAD_IMAGE_PATH = os.path.join(STATIC_IMAGE_PATH, 'upload')
+    STATIC_PATH = os.path.abspath('static')
+    UPLOAD_PATH = os.path.join(STATIC_PATH, 'upload')
 
 
-if not os.path.exists(Config.STATIC_IMAGE_PATH):
-    os.mkdir(Config.STATIC_IMAGE_PATH)
+if not os.path.exists(Config.STATIC_PATH):
+    os.mkdir(Config.STATIC_PATH)
 
-if not os.path.exists(Config.UPLOAD_IMAGE_PATH):
-    os.mkdir(Config.UPLOAD_IMAGE_PATH)
+if not os.path.exists(Config.UPLOAD_PATH):
+    os.mkdir(Config.UPLOAD_PATH)

@@ -107,6 +107,7 @@
   import commonTable from '@/mixins/table'
   //视频接口
   import { queryCompanys, deleteCompany, updateCompany, getCompany, createCompany } from '@/api/company'
+  import { COMPANY_TYPE } from '@/api/const'
 
   import CreatorDialog from './components/newDialog.vue'
 
@@ -124,6 +125,7 @@
 
         //配置resource_name
         resource_name: 'company',
+        COMPANY_TYPE: COMPANY_TYPE,
 
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
@@ -147,7 +149,25 @@
         this.fetchData()
       },
 
+      onDeleteClick(index, row) {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          deleteCompany(row.id).then((resp)=>{
+            if (resp.data.code === 200) {
+              this.$message({
+                type: 'success',
+                message: '删除成功!'
+              });
+            }
+            this.fetchData()
+          })
 
+        }).catch(() => {
+        });
+      }
 
     },
     mounted() {

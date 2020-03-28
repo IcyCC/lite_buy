@@ -31,7 +31,7 @@ class FileController():
         # file.save(os.path.join(file_path, filename))
 
         # 返回的是存储路径
-        return origin_file_path
+        return file_name
 
     @classmethod
     def download(cls, file_path, file_name):

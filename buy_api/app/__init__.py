@@ -17,6 +17,8 @@ app.config.from_object(Config)
 app.register_blueprint(handler.kind_bp)
 app.register_blueprint(handler.company_bp)
 app.register_blueprint(handler.results_bp)
-
+app.register_blueprint(handler.file_bp)
 
 # 测试
+
+
