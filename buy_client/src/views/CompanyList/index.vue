@@ -58,11 +58,11 @@
         </el-table-column>
 
         <el-table-column
-          prop="bus"
+          prop="production_kind"
           label="负责产品"
           >
           <template slot-scope="scope">
-           <span style="padding-left: 10px" v-for="item in ['灯光','音响', '舞台']" :key="item"><el-tag >{{ item }}</el-tag></span>
+           <span style="padding-left: 10px" v-for="item in scope.row.production_kind" :key="item"><el-tag >{{ item }}</el-tag></span>
           </template>
         </el-table-column>
 
@@ -71,7 +71,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="onDeleteClick(scope.$index, scope.row)">更新</el-button>
+              @click="onUpdateClick(scope.$index, scope.row)">更新</el-button>
             <el-button
             size="mini"
             type="danger"
@@ -98,6 +98,13 @@
         @onCancel="onNewCancel">
       </CreatorDialog>
 
+      <update-dialog
+        :visible="updateDialogShow"
+        :data="selected_data"
+        @onOK="onUpdateOK"
+        @onCancel="onUpdateCancel">
+      </update-dialog>
+
     </div>
   </div>
 </template>
@@ -109,10 +116,11 @@
   import { queryCompanys, deleteCompany, updateCompany, getCompany, createCompany } from '@/api/company'
 
   import CreatorDialog from './components/newDialog.vue'
+  import UpdateDialog from './components/updateDialog.vue'
 
   export default {
     mixins: [commonTable],
-    components: { CreatorDialog },
+    components: { CreatorDialog, UpdateDialog },
     data() {
       return {
         //配置minxin种curd api方法：

@@ -38,22 +38,13 @@
 </template>
 <script>
 import { isEmpty } from "@/utils/validate";
-import commonNewDialog from "@/mixins/new_dialog";
+import commonUpdateDialog from "@/mixins/update_dialog";
 import { queryKinds } from '@/api/kinds'
 
 export default {
-  mixins: [commonNewDialog],
+  mixins: [commonUpdateDialog],
   data() {
     return {
-      data: {
-        owner: "",
-        name: "",
-        tele: "",
-        detail: "",
-        type: "租赁",
-        production_kind: [],
-        //imgs: []
-      },
       uploadRules: {
         owner: [{ required: true, trigger: "blur", message: "公司法人不能为空" }],
         name: [{ required: true, trigger: "blur", message: "公司名称不能为空" }],
@@ -61,7 +52,6 @@ export default {
         detail: [{ required: true, trigger: "blur", message: "公司详情不能为空" }],
       },
       kinds:[]
-
     };
   },
   methods: {
