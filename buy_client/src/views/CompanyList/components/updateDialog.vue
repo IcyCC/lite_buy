@@ -23,9 +23,15 @@
         </el-checkbox-group>
       </el-form-item>
 
-      <el-form-item label="公司类型" prop="type">
-        <el-radio v-model="data.type" label="租赁">租赁</el-radio>
-        <el-radio v-model="data.type" label="采购">采购</el-radio>
+      <el-form-item label=类型 prop="type">
+        <el-select v-model="data.type" multiple placeholder="请选择">
+          <el-option
+            v-for="item in COMPANY_TYPE"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
       </el-form-item>
 
 
@@ -46,10 +52,6 @@ export default {
   data() {
     return {
       uploadRules: {
-        owner: [{ required: true, trigger: "blur", message: "公司法人不能为空" }],
-        name: [{ required: true, trigger: "blur", message: "公司名称不能为空" }],
-        tele: [{ required: true, trigger: "blur", message: "联系电话不能为空" }],
-        detail: [{ required: true, trigger: "blur", message: "公司详情不能为空" }],
       },
       kinds:[]
     };

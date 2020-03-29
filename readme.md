@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-03-26 16:40:29
- * @LastEditTime: 2020-03-26 16:40:40
+ * @LastEditTime: 2020-03-26 23:22:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  
@@ -26,3 +26,64 @@ Content-Type: application/json
 }
 ```
 
+# 仓库
+
+github-me
+|         | 
+local-me   github-you
+           |
+           local-you
+
+
+# a.txt b.txt
+
+a.txt
+
+```
+3
+```
+
+b.txt
+```
+3
+```
+
+master : v1 -> v2 -> v3
+dev   :         -> v3
+	
+
+在 master git pull dev
+
+pr
+
+master : v1 -> v2 -> v3 -> v4
+dev   :         -> v3 -> v4 
+
+dev: git pull master 
+
+
+
+
+master : v1 -> v2 -> v3 -> v4 -> v6
+dev   :         -> v3 -> v5  -> v6
+
+
+dev : git pull master 
+
+confict
+
+
+github-me-master
+
+github-me-dev
+
+local-me-master
+
+github -you -dev 
+
+
+delteCompany(id).then((resp)=>{
+	if (resp.data.code === 200) {
+		this.fetchData()
+	}
+})
