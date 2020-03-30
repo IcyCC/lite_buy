@@ -22,7 +22,7 @@ def file_upload():
     return jsonify(**{
         'msg': '上传成功',
         'code': 200,
-        'file_name  ': file_name
+        'file_name': file_name
     })
 
 #下载文件

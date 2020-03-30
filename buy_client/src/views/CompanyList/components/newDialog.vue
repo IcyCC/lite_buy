@@ -29,7 +29,7 @@
       </el-form-item> -->
 
 
-      <el-form-item label=类型 prop="type">
+      <el-form-item label="类型" prop="type">
         <el-select v-model="data.type" multiple placeholder="请选择">
           <el-option
             v-for="item in COMPANY_TYPE"
@@ -50,6 +50,17 @@
           </el-option>
         </el-select>
       </el-form-item> -->
+
+      <el-form-item label="上传图片">
+        <el-upload
+          class="upload-demo"
+          action="/api/files/upload"
+          :on-success="onSuccess"
+          multiple
+          :file-list="fileList">
+          <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -76,12 +87,13 @@ export default {
         detail: "",
         type: "",
         production_kind: [],
-        //imgs: []
+        imgs: []
       },
       selected_types: [],
       uploadRules: {
       },
-      kinds:[]
+      kinds: [],
+      fileList: []
 
     };
   },
@@ -96,6 +108,10 @@ export default {
           this.$emit("onOK", this.data);
         }
       });
+    },
+
+    onSuccess(response, file, fileList) {
+      this.data.imgs.push(response.file_name)
     }
   },
   mounted() {

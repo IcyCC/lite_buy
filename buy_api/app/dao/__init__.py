@@ -14,6 +14,7 @@ class CompanyDao(easyapi.BusinessBaseDao):
         new_data = {k:v for k, v in data.items()}
         new_data['production_kind'] = [k[1:-1] for k in  new_data.get('production_kind', '').split(',')]
         new_data['type'] = [k[1:-1] for k in  new_data.get('type', '').split(',')]
+        new_data['imgs'] = [k[1:-1] for k in  new_data.get('imgs', '').split(',')]
         return new_data
 
     @classmethod
@@ -23,7 +24,9 @@ class CompanyDao(easyapi.BusinessBaseDao):
         if 'production_kind' in new_data:
             new_data['production_kind'] = ','.join('|{}|'.format(k) for k in   new_data['production_kind'])
         if 'type' in new_data:
-            new_data['type'] = ','.join('|{}|'.format(k) for k in   new_data['production_kind'])
+            new_data['type'] = ','.join('|{}|'.format(k) for k in   new_data['type'])
+        if 'imgs' in new_data:
+            new_data['imgs'] = ','.join('|{}|'.format(k) for k in   new_data['imgs'])
         return new_data
 
     

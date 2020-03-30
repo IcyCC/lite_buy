@@ -18,7 +18,7 @@ class ResultController(easyapi.BaseController):
 
     @classmethod
     def formatter(cls, ctx: EasyApiContext , data: dict):
-        data = cls.formatter(ctx, data)
+        data = super.formatter(ctx, data)
         data['company'] = dao.CompanyDao.get(ctx=ctx, query={
             "id": data["company_id"]
         })

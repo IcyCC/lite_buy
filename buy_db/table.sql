@@ -8,6 +8,7 @@ create table companys
   detail          varchar(512) default '' not null,
   production_kind varchar(256) default '' not null,
   type            varchar(256)  default '' not null,
+  imgs            TEXT          default '' not null,
   created_at      TIMESTAMP    default NULL,
   updated_at      TIMESTAMP    default NULL,
   deleted_at      TIMESTAMP    default NULL,

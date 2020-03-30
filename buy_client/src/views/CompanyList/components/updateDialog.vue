@@ -46,11 +46,13 @@
 import { isEmpty } from "@/utils/validate";
 import commonUpdateDialog from "@/mixins/update_dialog";
 import { queryKinds } from '@/api/kinds'
+import { COMPANY_TYPE } from '@/api/const'
 
 export default {
   mixins: [commonUpdateDialog],
   data() {
     return {
+      COMPANY_TYPE:COMPANY_TYPE,
       uploadRules: {
       },
       kinds:[]
