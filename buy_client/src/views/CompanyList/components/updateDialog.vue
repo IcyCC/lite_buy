@@ -64,7 +64,15 @@ export default {
     handleSubmit() {
       this.$refs.data.validate(valid => {
         if (valid) {
-          console.log(this.data)
+          this.data = {
+            ...this.data,
+            id: undefined,
+            created_at: undefined,
+            created_by: undefined,
+            deleted_at: undefined,
+            updated_at: undefined,
+            updated_by: undefined
+          }
           this.$emit("onOK", this.data);
         }
       });
