@@ -17,49 +17,10 @@
         <el-input v-model="data.detail" ref="detail"></el-input>
       </el-form-item>
 
-      <el-form-item label="产品类型" prop="production_kind">
+      <el-form-item label="负责产品" prop="production_kind">
         <el-checkbox-group v-model="data.production_kind">
           <el-checkbox v-for="kind in kinds" :label="kind.name" :key="kind.name" border>{{kind.name}}</el-checkbox>
         </el-checkbox-group>
-      </el-form-item>
-
-      <!-- <el-form-item label="公司类型" prop="type">
-        <el-radio v-model="data.type" label="租赁">租赁</el-radio>
-        <el-radio v-model="data.type" label="采购">采购</el-radio>
-      </el-form-item> -->
-
-
-      <el-form-item label="类型" prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
-      <!-- <el-form-item label=产品类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item> -->
-
-      <el-form-item label="上传图片">
-        <el-upload
-          class="upload-demo"
-          action="/api/files/upload"
-          :on-success="onSuccess"
-          multiple
-          :file-list="fileList">
-          <el-button size="small" type="primary">点击上传</el-button>
-        </el-upload>
       </el-form-item>
 
       <el-form-item label=类型 prop="type">
@@ -73,16 +34,6 @@
         </el-select>
       </el-form-item>
 
-      <el-form-item label=产品类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>
@@ -93,47 +44,38 @@
 </template>
 <script>
 import { isEmpty } from "@/utils/validate";
-import commonNewDialog from "@/mixins/new_dialog";
+import commonUpdateDialog from "@/mixins/update_dialog";
 import { queryKinds } from '@/api/kinds'
 import { COMPANY_TYPE } from '@/api/const'
 
 export default {
-  mixins: [commonNewDialog],
+  mixins: [commonUpdateDialog],
   data() {
     return {
       COMPANY_TYPE:COMPANY_TYPE,
-      data: {
-        owner: "",
-        name: "",
-        tele: "",
-        detail: "",
-        type: "",
-        production_kind: [],
-        imgs: []
-      },
-      selected_types: [],
       uploadRules: {
       },
-      kinds: [],
-      fileList: []
-
+      kinds:[]
     };
   },
-  computed: {
-  },
   methods: {
+
 
     handleSubmit() {
       this.$refs.data.validate(valid => {
         if (valid) {
-          console.log(this.data)
+          this.data = {
+            ...this.data,
+            id: undefined,
+            created_at: undefined,
+            created_by: undefined,
+            deleted_at: undefined,
+            updated_at: undefined,
+            updated_by: undefined
+          }
           this.$emit("onOK", this.data);
         }
       });
-    },
-
-    onSuccess(response, file, fileList) {
-      this.data.imgs.push(response.file_name)
     }
   },
   mounted() {
