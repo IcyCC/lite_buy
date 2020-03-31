@@ -62,6 +62,28 @@
         </el-upload>
       </el-form-item>
 
+      <el-form-item label=类型 prop="type">
+        <el-select v-model="data.type" multiple placeholder="请选择">
+          <el-option
+            v-for="item in COMPANY_TYPE"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
+      </el-form-item>
+
+      <el-form-item label=产品类型 prop="type">
+        <el-select v-model="data.type" multiple placeholder="请选择">
+          <el-option
+            v-for="item in COMPANY_TYPE"
+            :key="item"
+            :label="item"
+            :value="item">
+          </el-option>
+        </el-select>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>
         <el-button @click="handleCancel">取消</el-button>
