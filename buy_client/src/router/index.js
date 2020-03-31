@@ -61,7 +61,10 @@ export const constantRoutes = [
         path: '/buy',
         name: '采购中心',
         component: () => import('@/views/BuyCenter/index'),
-        meta: { title: "采购中心"}
+        meta: { 
+          title: "采购中心",
+          icon: 'buycenter'
+        }
       },
     ]
   },
@@ -77,7 +80,10 @@ export const constantRoutes = [
         path: '/ret',
         name: '租赁中心',
         component: () => import('@/views/RetCenter/index'),
-        meta: { title: "租赁中心"}
+        meta: {
+          title: "租赁中心",
+          icon: 'retcenter'
+        }
       },
     ]
   },
@@ -87,18 +93,27 @@ export const constantRoutes = [
     name: "数据管理",
     component: Layout,
     redirect: 'company',
-    meta: { title: '数据管理'},
+    meta: {
+      title: '数据管理',
+      icon: 'datamanager'
+    },
     children: [{
       path: 'company',
       name: '公司管理',
       component: () => import('@/views/CompanyList/index'),
-      meta: { title: "公司管理"}
+      meta: {
+        title: "公司管理",
+        icon: 'companymanager'
+      }
     },
       {
         path: 'kind',
         name: '类目管理',
         component: () => import('@/views/KindList/index'),
-        meta: { title: "类目管理"}
+        meta: {
+          title: "类目管理",
+          icon: 'kindmanager'
+        }
       },
     ]
   },
@@ -111,7 +126,10 @@ export const constantRoutes = [
     children: [{
       path: '/my/my',
       name: '采购结果',
-      meta: { title: "采购结果"},
+      meta: {
+        title: "采购结果",
+        icon: 'buyresult'
+      },
       component: () => import('@/views/MyBuy/index'),
     }
     ]
