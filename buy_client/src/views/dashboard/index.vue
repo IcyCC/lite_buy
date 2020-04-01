@@ -7,24 +7,20 @@
       <el-form class="form" inline>
         <template v-for="item in permission_routes">
           <div v-if="item.children && item.meta">
-            <el-col :span="24">{{item.meta.title}}</el-col>
+            <div style="margin-top: 20px">{{item.meta.title}}</div>
+            <el-row v-if="item.children" :key="item.path" :gutter="20" style="margin-top: 10px">
             <div v-for="c in item.children" :key="c.path">
-              <el-form-item class="manage-card-item" v-if="item.children" :key="item.path">
+              <el-col :span="5">
                 <el-card
                   class="manage-card"
                   @click.native="handleSelect(c.name)"
                   :key="`menu-${item.name}`"
                 >
-                  <el-row>
-                    <el-col :span="2"></el-col>
-                    <el-col style="margin-left: 10px" :span="10">
-                      <i class="iconfont" :class="c.meta.icon"></i>
-                    </el-col>
-                    <el-col :span="12">{{c.meta.title}}</el-col>
-                  </el-row>
+                   <span class="iconfont"> <svg-icon :icon-class="c.meta.icon"/> {{c.meta.title}} </span>
                 </el-card>
-              </el-form-item>
+              </el-col>
             </div>
+            </el-row>
           </div>
         </template>
       </el-form>
@@ -71,8 +67,7 @@
   }
   .iconfont {
     font-family: "iconfont" !important;
-    font-size: 28px;
-    width: 40px;
+    font-size: 23px;
     font-style: normal;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -88,16 +83,10 @@
   .form {
     /*margin: 40px 20px 0 40px;*/
   }
-</style>
 
-<style lang="scss">
   .manage-card-item {
-    width: 25%;
-    min-width: 217px;
-    height: 100px;
+    width: 100%;
     margin-right: 50px;
-    .el-form-item__content {
-      width: 100%;
-    }
+
   }
 </style>

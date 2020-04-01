@@ -1,8 +1,10 @@
 <template>
   <section class="app-main">
+    <div class="app-bg">
     <transition name="fade-transform" mode="out-in">
       <router-view :key="key" />
     </transition>
+    </div>
   </section>
 </template>
 
@@ -18,6 +20,7 @@ export default {
 </script>
 
 <style scoped>
+
 .app-main {
   /*50 = navbar  */
   min-height: calc(100vh - 50px);
@@ -25,6 +28,12 @@ export default {
   position: relative;
   overflow: hidden;
 }
+
+.app-bg {
+  background-image: url('~@/assets/bg.png');
+  background-repeat: repeat;
+}
+
 .fixed-header+.app-main {
   padding-top: 50px;
 }

@@ -42,11 +42,12 @@ export const constantRoutes = [
     path: '/',
     component: Layout,
     redirect: 'dashboard',
+    hidden: true,
     children: [{
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '文化用品管理终端' }
+      meta: { title: '文化用品管理终端', }
     },]
   },
 
