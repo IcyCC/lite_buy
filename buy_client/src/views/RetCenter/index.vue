@@ -99,8 +99,8 @@
         resource_name: 'company',
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
-          _like_type: '|租赁|',
-          _like_production_kind: this.activeName
+          _search_type: '|租赁|',
+          _search_production_kind: this.activeName
         },
 
         data: [],  //列表
@@ -118,7 +118,7 @@
     methods: {
       //Rewrite minxin onReset()  查询条件重置
       onTabClick() {
-        this.query._like_production_kind = '|' + this.activeName + '|'
+        this.query._search_production_kind = '|' + this.activeName + '|'
         this.order = { _order_by: 'id', _desc: true } //order 在
         this.pages._page = 1
         this.fetchData()

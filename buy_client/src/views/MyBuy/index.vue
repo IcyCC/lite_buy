@@ -28,21 +28,27 @@
         </el-table-column>
 
         <el-table-column
-          prop="bus"
+          prop="type"
           label="中标类型"
         >
           <template slot-scope="scope">
-            <el-tag >租赁</el-tag>
+            <el-tag >{{scope.row.type}}</el-tag>
           </template>
         </el-table-column>
 
         <el-table-column
-          prop="bus"
-          label="类别"
+          prop="production_type"
+          label="产品类型"
         >
           <template slot-scope="scope">
-            <el-tag >灯光</el-tag>
+            <el-tag >{{scope.row.production_type}}</el-tag>
           </template>
+        </el-table-column>
+
+        <el-table-column
+          prop="created_by"
+          label="采购/租赁人"
+        >
         </el-table-column>
 
         <el-table-column
