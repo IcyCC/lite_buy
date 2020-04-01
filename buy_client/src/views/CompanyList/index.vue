@@ -44,12 +44,9 @@
           </template>
         </el-table-column>
         <el-table-column
-          prop="img"
-          label="公司图片"
+          prop="owner"
+          label="公司法人"
           >
-          <template slot-scope="scope">
-            <img :src="scope.row.img" width="50" height="50"/>
-          </template>
         </el-table-column>
         <el-table-column
           prop="detail"
@@ -158,7 +155,7 @@
       },
 
       onDeleteClick(index, row) {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        this.$confirm('是否确认删除?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

@@ -23,65 +23,50 @@
         </el-checkbox-group>
       </el-form-item>
 
-      <!-- <el-form-item label="公司类型" prop="type">
-        <el-radio v-model="data.type" label="租赁">租赁</el-radio>
-        <el-radio v-model="data.type" label="采购">采购</el-radio>
-      </el-form-item> -->
-
-
-      <el-form-item label="类型" prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
+      <el-form-item label="公司类型" prop="type">
+        <el-checkbox-group v-model="data.type">
+          <el-checkbox v-for="item in COMPANY_TYPE" :key="item" :label="item" :value="item" border>{{item}}</el-checkbox>
+        </el-checkbox-group>
       </el-form-item>
 
-      <!-- <el-form-item label=产品类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
+      <!-- <el-form-item label="产品类型" prop="production_kind">
+        <el-select v-model="data.production_kind" multiple placeholder="请选择">
+          <el-option v-for="kind in kinds" :label="kind.name" :key="kind.name"></el-option>
         </el-select>
       </el-form-item> -->
 
       <el-form-item label="上传图片">
         <el-upload
-          class="upload-demo"
+          list-type="picture-card"
           action="/api/files/upload"
-          :on-success="onSuccess"
-          multiple
-          :file-list="fileList">
-          <el-button size="small" type="primary">点击上传</el-button>
+          :on-success="handleChange"
+          :file-list="files"
+          multiple>
+          <i slot="default" class="el-icon-plus"></i>
+          <div slot="file" slot-scope="{file}">
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+            >
+            <span class="el-upload-list__item-actions">
+              <span
+                class="el-upload-list__item-preview"
+                @click="handlePictureCardPreview(file)"
+              >
+                <i class="el-icon-zoom-in"></i>
+              </span>
+              <span
+                class="el-upload-list__item-delete"
+                @click="handleRemove(file)"
+              >
+                <i class="el-icon-delete"></i>
+              </span>
+            </span>
+          </div>
         </el-upload>
-      </el-form-item>
-
-      <el-form-item label=类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-
-      <el-form-item label=产品类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
+        <el-dialog :visible.sync="pictureVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
       </el-form-item>
 
       <el-form-item>
@@ -107,7 +92,7 @@ export default {
         name: "",
         tele: "",
         detail: "",
-        type: "",
+        type: [],
         production_kind: [],
         imgs: []
       },
@@ -115,7 +100,9 @@ export default {
       uploadRules: {
       },
       kinds: [],
-      fileList: []
+      pictureVisible: false,
+      dialogImageUrl: '',
+      files: []
 
     };
   },
@@ -126,14 +113,33 @@ export default {
     handleSubmit() {
       this.$refs.data.validate(valid => {
         if (valid) {
-          console.log(this.data)
           this.$emit("onOK", this.data);
         }
       });
     },
 
-    onSuccess(response, file, fileList) {
-      this.data.imgs.push(response.file_name)
+    handleChange(resp, file, fileList) {
+      this.files = fileList
+      this.updateFiles()
+    },
+
+    handleRemove(file) {
+      this.files = this.files.filter((item) => {
+        return item.name !== file.name
+      })
+      this.updateFiles()
+    },
+
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.pictureVisible = true
+    },
+
+    updateFiles() {
+      this.data.imgs = []
+      this.files.forEach(file => {
+        this.data.imgs.push(file.response.file_name)
+      })
     }
   },
   mounted() {

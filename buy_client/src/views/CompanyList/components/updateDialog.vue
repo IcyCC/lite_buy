@@ -23,15 +23,44 @@
         </el-checkbox-group>
       </el-form-item>
 
-      <el-form-item label=类型 prop="type">
-        <el-select v-model="data.type" multiple placeholder="请选择">
-          <el-option
-            v-for="item in COMPANY_TYPE"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
+      <el-form-item label="公司类型" prop="type">
+        <el-checkbox-group v-model="data.type">
+          <el-checkbox v-for="item in COMPANY_TYPE" :key="item" :label="item" :value="item" border>{{item}}</el-checkbox>
+        </el-checkbox-group>
+      </el-form-item>
+
+      <el-form-item label="上传图片">
+        <el-upload
+          list-type="picture-card"
+          action="/api/files/upload"
+          :on-success="handleChange"
+          :file-list="files"
+          multiple>
+          <i slot="default" class="el-icon-plus"></i>
+          <div slot="file" slot-scope="{file}">
+            <img
+              class="el-upload-list__item-thumbnail"
+              :src="file.url"
+            >
+            <span class="el-upload-list__item-actions">
+              <span
+                class="el-upload-list__item-preview"
+                @click="handlePictureCardPreview(file)"
+              >
+                <i class="el-icon-zoom-in"></i>
+              </span>
+              <span
+                class="el-upload-list__item-delete"
+                @click="handleRemove(file)"
+              >
+                <i class="el-icon-delete"></i>
+              </span>
+            </span>
+          </div>
+        </el-upload>
+        <el-dialog :visible.sync="pictureVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
       </el-form-item>
 
 
@@ -55,7 +84,9 @@ export default {
       COMPANY_TYPE:COMPANY_TYPE,
       uploadRules: {
       },
-      kinds:[]
+      kinds:[],
+      pictureVisible: false,
+      dialogImageUrl: ''
     };
   },
   methods: {
@@ -76,8 +107,51 @@ export default {
           this.$emit("onOK", this.data);
         }
       });
+    },
+    handleChange(resp, file, fileList) {
+      this.data.imgs.push(file.response.file_name)
+    },
+
+    handleRemove(file) {
+      let tmp_files = this.files.filter((item) => {
+        return item.name !== file.name
+      })
+      this.data.imgs = []
+      tmp_files.forEach(f => {
+        this.data.imgs.push(f.name)
+      })
+    },
+
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url
+      this.pictureVisible = true
+    },
+
+    updateFiles() {
+      this.data.imgs = []
+      this.files.forEach(file => {
+        this.data.imgs.push(file.response.file_name)
+      })
     }
   },
+
+  computed: {
+    files() {
+      if (this.data.imgs) {
+        let fs = []
+        this.data.imgs.forEach((img) => {
+          fs.push({
+            name: img,
+            url: '/api/files/download/' + img
+          })
+        })
+        return fs
+      } else {
+        return []
+      }
+    }
+  },
+
   mounted() {
     window.vue = this;
     let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
