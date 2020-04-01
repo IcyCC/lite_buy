@@ -143,7 +143,6 @@ export default {
     }
   },
   mounted() {
-    window.vue = this;
     let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
     queryKinds(params).then((res) => {
       this.kinds = res.data.kinds

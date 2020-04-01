@@ -81,6 +81,7 @@
   import DetailDialog from './components/DetailDialog'
   import OrderDialog from './components/OrderDIalog'
   import { createResult } from '@/api/results'
+  import { queryKinds } from '@/api/kinds'
 
 
   export default {
@@ -88,7 +89,7 @@
     components: { Sticky, pick_company, DetailDialog, OrderDialog },
     data() {
       return {
-        kinds: ['灯光', '音响', '舞台'],
+        kinds: [],
         activeName: '',
 
         //配置minxin种curd api方法：
@@ -171,10 +172,15 @@
 
     },
     mounted() {
-      // window.vue = this
-      this.activeName = this.kinds[0]
-      console.log('mounted', this.activeName)
-      this.onTabClick()
+      let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
+      queryKinds(params).then((res) => {
+        res.data.kinds.forEach(k => {
+          this.kinds.push(k.name)
+        })
+        this.activeName = this.kinds[0]
+        this.onTabClick()
+      })
+      
     }
 
   }
