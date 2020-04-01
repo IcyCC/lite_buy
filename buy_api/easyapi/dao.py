@@ -289,7 +289,8 @@ class BusinessBaseDao(BaseDao):
         if where_dict is None:
             where_dict = {}
         data['updated_at'] = datetime.datetime.now()
-        data['updated_by'] = modify_by
+        if modify_by:
+            data['updated_by'] = modify_by
         if not unscoped:
             where_dict['deleted_at'] = None
         return super().update(ctx=ctx, where_dict=where_dict, data=data)
@@ -308,7 +309,8 @@ class BusinessBaseDao(BaseDao):
             where_dict = {}
         data = dict()
         data['deleted_at'] = datetime.datetime.now()
-        data['updated_by'] = modify_by
+        if modify_by:
+            data['updated_by'] = modify_by
         if not unscoped:
             where_dict['deleted_at'] = None
         return super().update(ctx=ctx, where_dict=where_dict, data=data)
@@ -325,7 +327,8 @@ class BusinessBaseDao(BaseDao):
         if data is None:
             data = {}
         data['created_at'] = datetime.datetime.now()
-        data['created_by'] = modify_by
+        if modify_by:
+            data['created_by'] = modify_by
         return super().insert(ctx=ctx, data=data)
 
     @classmethod
