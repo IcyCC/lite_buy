@@ -119,6 +119,28 @@
         this.pages._page = 1
         this.fetchData()
       },
+      onNewOK(obj) {
+        let params = { name: obj.name }
+        this.queryMethod(params).then((res) => {
+          if(res.data.total) {
+            this.$message({
+              type: 'error',
+              message: '产品类目已存在'
+            })
+          } else {
+            this.newMethod(obj).then((res) => {
+              if (res.data.code === 200) {
+                this.newDialogShow = false
+                this.$message({
+                  type: 'success',
+                  message: '创建成功'
+                })
+                return this.fetchData()
+              }
+            })
+          }
+        })
+      },
 
 
 
