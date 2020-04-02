@@ -1,4 +1,5 @@
 import axios from '@/utils/request'
+import {SERVER_URL} from './index'
 
 //获取列表信息（GET）
 export const queryResults = (params) => {

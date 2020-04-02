@@ -32,7 +32,7 @@
       <el-form-item label="上传图片">
         <el-upload
           list-type="picture-card"
-          action="/api/files/upload"
+          :action="getUploadImageUrl()"
           :on-success="handleChange"
           :file-list="files"
           multiple>
@@ -76,6 +76,7 @@ import { isEmpty } from "@/utils/validate";
 import commonUpdateDialog from "@/mixins/update_dialog";
 import { queryKinds } from '@/api/kinds'
 import { COMPANY_TYPE } from '@/api/const'
+import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
 
 export default {
   mixins: [commonUpdateDialog],
@@ -147,7 +148,9 @@ export default {
       this.files.forEach(file => {
         this.data.imgs.push(file.response.file_name)
       })
-    }
+    },
+    getDonwloadImageUrl(img) {return getDonwloadImageUrl(img)},
+    getUploadImageUrl() {return getUploadImageUrl()},
   },
 
   computed: {
@@ -157,7 +160,7 @@ export default {
         this.data.imgs.forEach((img) => {
           fs.push({
             name: img,
-            url: '/api/files/download/' + img
+            url: this.getDonwloadImageUrl(img)
           })
         })
         return fs

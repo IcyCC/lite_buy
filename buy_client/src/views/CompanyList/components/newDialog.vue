@@ -38,7 +38,7 @@
       <el-form-item label="上传图片">
         <el-upload
           list-type="picture-card"
-          action="/api/files/upload"
+          :action="getUploadImageUrl()"
           :on-success="handleChange"
           :file-list="files"
           multiple>
@@ -81,6 +81,7 @@ import { isEmpty } from "@/utils/validate";
 import commonNewDialog from "@/mixins/new_dialog";
 import { queryKinds } from '@/api/kinds'
 import { COMPANY_TYPE } from '@/api/const'
+import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
 
 export default {
   mixins: [commonNewDialog],
@@ -125,6 +126,8 @@ export default {
   },
   methods: {
 
+    getDonwloadImageUrl(img) {return getDonwloadImageUrl(img)},
+    getUploadImageUrl() {return getUploadImageUrl()},
     handleSubmit() {
       this.$refs.data.validate(valid => {
         if (valid) {

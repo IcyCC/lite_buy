@@ -20,7 +20,7 @@
                     <el-carousel height="225px" width="125px">
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
-                          :src="'/api/files/download/'+img"
+                          :src="getDonwloadImageUrl(img)"
                           fit="contian">
                                 <div slot="error" class="image-slot">
                               <i class="el-icon-picture-outline"></i>
@@ -97,6 +97,7 @@
   import { createResult } from '@/api/results'
   import { queryKinds } from '@/api/kinds'
 
+  import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
 
   export default {
     mixins: [commonTable],
@@ -128,6 +129,9 @@
     },
     
     methods: {
+      
+    getDonwloadImageUrl(img) {return getDonwloadImageUrl(img)},
+    getUploadImageUrl() {return getUploadImageUrl()},
       //Rewrite minxin onReset()  查询条件重置
       onTabClick() {
         this.query._search_production_kind = '|' + this.activeName + '|'

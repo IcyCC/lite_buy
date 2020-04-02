@@ -54,12 +54,12 @@ export const constantRoutes = [
   {
     path: '/buy',
     name: '采购',
-    redirect: '/buy',
+    redirect: 'buy',
     meta: { title: "采购中心"},
     component: Layout,
     children: [
       {
-        path: '/buy',
+        path: 'buy',
         name: '采购中心',
         component: () => import('@/views/BuyCenter/index'),
         meta: { 
@@ -73,12 +73,12 @@ export const constantRoutes = [
   {
     path: '/ret',
     name: '租赁',
-    redirect: '/ret',
+    redirect: 'ret',
     component: Layout,
     meta: { title: "租赁中心"},
     children: [
       {
-        path: '/ret/ret',
+        path: 'ret',
         name: '租赁中心',
         component: () => import('@/views/RetCenter/index'),
         meta: {
@@ -122,10 +122,10 @@ export const constantRoutes = [
   {
     path: '/my',
     component: Layout,
-    redirect: '/my/my',
+    redirect: 'my',
     meta: { title: '采购结果'},
     children: [{
-      path: '/my/my',
+      path: 'my',
       name: '采购结果',
       meta: {
         title: "采购结果",
