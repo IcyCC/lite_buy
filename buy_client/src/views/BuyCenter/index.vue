@@ -4,91 +4,68 @@
 
     <div class="app-container">
       <!-- <div>模板列表</div> -->
+        <el-row :gutter="20">
+          <el-tabs v-model="activeName" type="card" @tab-click="onTabClick">
+            <el-tab-pane v-for="kind in kinds" :key="kind" :label="kind" :name="kind">
 
-      <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
-        <el-form :inline="true" v-model="query">
-          <el-form-item label="用户姓名：">
-            <el-input v-model="query._like_name" placeholder="请输入用户姓名"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSearch">查询</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button plain @click="onReset">重置</el-button>
-          </el-form-item>
+              <el-row :gutter="20" style="min-height: 500px">
+                <el-col :span="6" v-for="company in data" :key="company.id" style="padding-top: 20px">
+                  <el-card :body-style="{ padding: '0px' }" style="cursor:pointer;" @click.native="onCardClick(company)">
+                    <el-carousel height="125px" width="125px">
+                      <el-carousel-item v-for="img in company.imgs" :key="img">
+                        <el-image
+                          :src="'/api/files/download/'+img"
+                          fit="fill"></el-image>
+                      </el-carousel-item>
+                    </el-carousel>
+                    <div style="padding: 14px;">
+                      <span>公司名称：{{company.name}}公司</span>
+                      <div class="bottom clearfix">
+                        <time class="time">{{ company.detail }}</time>
+                        <div style="float: right">
+                            <el-button type="text" @click.stop="onSelectClick(company, $event)">选取</el-button>
+                            <el-button style="padding-left: 20px" type="text" @click.stop="onOrderClick(company)">采购</el-button>
+                        </div>
 
-          <el-form-item style="float: right">
-            <el-button type="success"  @click="onNewClick">添加用户</el-button>
-          </el-form-item>
-        </el-form>
-      </el-col>
+                      </div>
+                    </div>
+                  </el-card>
+                </el-col>
+              </el-row>
 
+            </el-tab-pane>
+          </el-tabs>
+        </el-row>
 
-      <el-table
-        :data="data"
-        v-loading="tableLoading"
-        @sort-change="onSort">
-
-        <el-table-column
-          prop="id"
-          label="id"
-          sortable
-          width="80">
-        </el-table-column>
-        <el-table-column
-          prop="account"
-          label="账号"
-          sortable
-          width="180">
-        </el-table-column>
-        <el-table-column
-          prop="name"
-          label="姓名"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="ip"
-          label="IP"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="uuid"
-          label="用户编号"
-          sortable>
-        </el-table-column>
-        <el-table-column
-          prop="organization.name"
-          label="所属单位名称"
-          sortable>
-        </el-table-column>
-
-        <el-table-column label="操作">
-          <template slot-scope="scope">
-            <el-button
-            size="mini"
-            type="danger"
-            @click="onDeleteClick(scope.$index, scope.row)">删除</el-button>
-          </template>
-        </el-table-column>
-
-      </el-table>
-
+      <Sticky :stickyTop="800">
       <el-col :span="24" class="toolbar">
         <el-pagination
           @current-change="onPageChange"
           :current-page="pages._page"
           :page-size="pages._per_page"
+          background
           layout="total, prev, pager, next"
           :total="total"
           style="float:right;">
         </el-pagination>
       </el-col>
+        <pick_company :companys.sync="selected_companys" style="position: absolute; bottom:250px; right: 0px" @click="show=!show" @selected="onOrderClick"></pick_company>
+      </Sticky>
 
-      <CreatorDialog
-        :visible="newDialogShow"
-        @onOK="onNewOK"
-        @onCancel="onNewCancel">
-      </CreatorDialog>
+      <detail-dialog
+        :visible="detail_dialog_show"
+        :company="selected_company"
+        @onCancel="onDetailDialogCancel"
+        @onOK="onDetailDialogOK">
+      </detail-dialog>
+
+      <order-dialog
+        :visible="order_dialog_show"
+        :production_type="activeName"
+        :company="selected_company"
+        @onCancel="onOrderDialogCancel"
+        @onOK="onOrderDialogOK">
+      </order-dialog>
 
     </div>
   </div>
@@ -96,33 +73,43 @@
 
 <script>
   //mixin
-  import commonTable from '@/mixins/table'
   //视频接口
-  import { queryUsers, deleteUser, updateUser, getUser, createUser } from '@/api/user'
+  import commonTable from '@/mixins/table'
+  import { queryCompanys } from '@/api/company'
+  import Sticky from '@/components/Sticky'
+  import pick_company from '@/views/components/pick_company'
+  import DetailDialog from './components/DetailDialog'
+  import OrderDialog from './components/OrderDIalog'
+  import { createResult } from '@/api/results'
+  import { queryKinds } from '@/api/kinds'
 
-  import CreatorDialog from './components/newDialog.vue'
 
   export default {
     mixins: [commonTable],
-    components: { CreatorDialog },
+    components: { Sticky, pick_company, DetailDialog, OrderDialog },
     data() {
       return {
+        kinds: [],
+        activeName: '',
+
         //配置minxin种curd api方法：
-        newMethod: createUser,
-        deleteMethod: deleteUser,
-        updateMethod: updateUser,
-        getMethod: getUser,
-        queryMethod: queryUsers,
+        queryMethod: queryCompanys,
 
         //配置resource_name
-        resource_name: 'user',
-
+        resource_name: 'company',
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
-          _like_name: undefined
+          _search_type: '|采购|',
+          _search_production_kind: this.activeName
         },
 
         data: [],  //列表
+
+        selected_company: {},
+        detail_dialog_show: false,
+        order_dialog_show: false,
+
+        selected_companys: []
 
       }
     },
@@ -130,21 +117,70 @@
     },
     methods: {
       //Rewrite minxin onReset()  查询条件重置
-      onReset() {
-        this.query = {  //条件查询 dict
-          _like_name: undefined
-        }
+      onTabClick() {
+        this.query._search_production_kind = '|' + this.activeName + '|'
         this.order = { _order_by: 'id', _desc: true } //order 在
         this.pages._page = 1
         this.fetchData()
       },
 
+      onCardClick(company) {
+        this.selected_company = company
+        this.detail_dialog_show = true
+      },
 
+      onDetailDialogCancel() {
+        this.detail_dialog_show = false
+      },
+
+      onDetailDialogOK() {
+        this.detail_dialog_show = false
+      },
+
+      onOrderClick(company) {
+        this.selected_company = company
+        this.order_dialog_show = true
+      },
+
+      onOrderDialogCancel() {
+        this.order_dialog_show = false
+      },
+
+      onOrderDialogOK(obj) {
+        createResult(obj).then((res) => {
+          if (res.data.code === 200) {
+            this.order_dialog_show = false
+            this.$message({
+              type: 'success',
+              message: '采购信息提交成功'
+            })
+          }
+        })
+      },
+
+      onSelectClick(company, event) {
+        let exist = false
+        this.selected_companys.forEach(element => {
+          if(company.id === element.id) {
+            exist = true
+            return
+          }
+        });
+        if(!exist)
+          this.selected_companys.push(company)
+      }
 
     },
     mounted() {
-      // window.vue = this
-
+      let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
+      queryKinds(params).then((res) => {
+        res.data.kinds.forEach(k => {
+          this.kinds.push(k.name)
+        })
+        this.activeName = this.kinds[0]
+        this.onTabClick()
+      })
+      
     }
 
   }
@@ -158,5 +194,35 @@
 
   .toolbar .el-form-item {
     margin-bottom: 10px;
+  }
+
+  .time {
+    font-size: 13px;
+    color: #999;
+  }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 0;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
   }
 </style>

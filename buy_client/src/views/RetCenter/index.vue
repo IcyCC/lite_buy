@@ -81,6 +81,7 @@
   import DetailDialog from './components/DetailDialog'
   import OrderDialog from './components/OrderDIalog'
   import { createResult } from '@/api/results'
+  import { queryKinds } from '@/api/kinds'
 
 
   export default {
@@ -88,7 +89,7 @@
     components: { Sticky, pick_company, DetailDialog, OrderDialog },
     data() {
       return {
-        kinds: ['灯光', '音响', '舞台'],
+        kinds: [],
         activeName: '',
 
         //配置minxin种curd api方法：
@@ -98,8 +99,8 @@
         resource_name: 'company',
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
-          _like_type: '|租赁|',
-          _like_production_kind: this.activeName
+          _search_type: '|租赁|',
+          _search_production_kind: this.activeName
         },
 
         data: [],  //列表
@@ -117,7 +118,7 @@
     methods: {
       //Rewrite minxin onReset()  查询条件重置
       onTabClick() {
-        this.query._like_production_kind = '|' + this.activeName + '|'
+        this.query._search_production_kind = '|' + this.activeName + '|'
         this.order = { _order_by: 'id', _desc: true } //order 在
         this.pages._page = 1
         this.fetchData()
@@ -171,10 +172,15 @@
 
     },
     mounted() {
-      // window.vue = this
-      this.activeName = this.kinds[0]
-      console.log('mounted', this.activeName)
-      this.onTabClick()
+      let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
+      queryKinds(params).then((res) => {
+        res.data.kinds.forEach(k => {
+          this.kinds.push(k.name)
+        })
+        this.activeName = this.kinds[0]
+        this.onTabClick()
+      })
+      
     }
 
   }
