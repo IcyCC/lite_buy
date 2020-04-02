@@ -1,8 +1,12 @@
 <template>
     <div>
-      <el-button icon="el-icon-files" type="primary"  @click="()=>{this.drawer = true}">随机选取</el-button>
+      <el-button icon="el-icon-files" type="primary"  @click="()=>{this.drawer = true}">
+          <el-badge :value="companys.length" class="item">
+        随机选取
+          </el-badge>
+</el-button>
       <el-drawer
-        title="我是标题"
+        title="随机抽选"
         :visible.sync="drawer"
         direction="rtl">
         <span slot="title">随机抽选</span>

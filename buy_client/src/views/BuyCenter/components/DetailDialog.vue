@@ -1,10 +1,11 @@
 <template>
   <el-dialog :visible="visible" @close="handleCancel">
-    <el-carousel height="200px">
-      <el-carousel-item v-for="img in company.imgs" :key="img">
+    <el-carousel height="400px">
+      <el-carousel-item v-for="img in company.imgs" :key="img" style="text-align:center">
         <el-image
           :src="'/api/files/download/'+img"
-          fit="fill"></el-image>
+          style="width: 400px; height: 400px"
+          fit="scale-down"></el-image>
       </el-carousel-item>
     </el-carousel>
     <div style="padding: 14px;">

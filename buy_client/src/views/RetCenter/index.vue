@@ -11,7 +11,7 @@
               <el-row :gutter="20" style="min-height: 500px">
                 <el-col :span="6" v-for="company in data" :key="company.id" style="padding-top: 20px">
                   <el-card :body-style="{ padding: '0px' }" style="cursor:pointer;" @click.native="onCardClick(company)">
-                    <el-carousel height="125px" width="125px">
+                    <el-carousel height="225px" width="125px">
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
                           :src="'/api/files/download/'+img"
@@ -122,6 +122,7 @@
         this.order = { _order_by: 'id', _desc: true } //order 在
         this.pages._page = 1
         this.fetchData()
+        this.selected_companys = []
       },
 
       onCardClick(company) {
