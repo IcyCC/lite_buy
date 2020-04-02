@@ -28,3 +28,8 @@ export default {
   }
 };
 </script>
+<style>
+  .company-card .el-loading-spinner i {
+    zoom: 300% !important;
+  }
+</style>

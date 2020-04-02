@@ -28,7 +28,8 @@
         name: "index",
         props: {
           companys: {type: Array, default:[]},
-          selected: Function
+          selected: Function,
+          onDelete: Function
         },
         data: function () {
           return {
@@ -41,6 +42,7 @@
               return item.id !== company.id
             })
             this.$emit('update:companys', newdata)
+            this.$emit('onDelete', company.id)
           },
           onRandomSelectClick() {
             if(this.companys.length) {
