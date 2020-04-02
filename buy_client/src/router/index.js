@@ -78,7 +78,7 @@ export const constantRoutes = [
     meta: { title: "租赁中心"},
     children: [
       {
-        path: '/ret',
+        path: '/ret/ret',
         name: '租赁中心',
         component: () => import('@/views/RetCenter/index'),
         meta: {
@@ -163,6 +163,7 @@ export const asyncRoutes = [
 
 const createRouter = () => new Router({
   // mode: 'history', // require service support
+  mode:"hash",
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes,
 })

@@ -13,6 +13,7 @@ class Config:
     STATIC_PATH = os.path.abspath('static')
     UPLOAD_PATH = os.path.join(STATIC_PATH, 'upload')
 
+print(Config.SQLITE_FILE)
 
 if not os.path.exists(Config.STATIC_PATH):
     os.mkdir(Config.STATIC_PATH)

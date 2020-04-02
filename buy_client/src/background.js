@@ -8,7 +8,7 @@ import {
 
 const { execFile, exec } = require("child_process");
 
-const isDevelopment = process.env.NODE_ENV !== "production";
+const isDevelopment = true;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -54,7 +54,7 @@ function createWindow() {
   });
 
   if (process.platform === "win32") {
-    rpc = execFile("./rpc.exe");
+    rpc = execFile("./run/run.exe");
     // rpc.on('close', ()=>{
     //   app.quit()
     // })
@@ -104,7 +104,7 @@ app.on("ready", async () => {
 
 app.on("quit", () => {
   if (process.platform === "win32") {
-    exec("taskkill /F /pid " + rpc.pid);
+    exec("taskkill /F /IM run.exe" );
   }
 });
 
@@ -123,6 +123,3 @@ if (isDevelopment) {
   }
 }
 
-ipcMain.on("Video.ResetartSDK", (event, args) => {
-  rpc = execFile("./rpc.exe");
-});

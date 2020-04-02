@@ -61,13 +61,21 @@ module.exports = {
       builderOptions: {
         // artifactName : '播放器 v1.0.exe',
         // productName: "播放器",
-         artifactName : '解码器 v1.0.exe',
-         productName: "解码器",
+         artifactName : '商品采购终端 v1.0.exe',
+         productName: "商品采购终端",
          nsis: {
           oneClick: true,
           createDesktopShortcut: true,
           createStartMenuShortcut: true
          },
+         extraFiles:[{
+          from: "./run",
+          to: "./run"
+        },
+        {
+          from: "./buy.sqlite",
+          to: "./buy.sqlite"
+        }]
       }
     }
   },
