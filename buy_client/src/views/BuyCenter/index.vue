@@ -10,17 +10,21 @@
 
               <el-row :gutter="20" style="min-height: 500px">
                 <el-col :span="6" v-for="company in data" :key="company.id" style="padding-top: 20px">
-                  <el-card :body-style="{ padding: '0px' }" style="cursor:pointer;" @click.native="onCardClick(company)">
+                  <el-card
+                    class="company-card"
+                    :body-style="{ padding: '0px' }"
+                    style="cursor:pointer;"
+                    v-loading="company.picked"
+                    element-loading-spinner="el-icon-success"
+                    @click.native="onCardClick(company)">
                     <el-carousel height="225px" width="125px">
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
-                                  style="width: 225px; height: 125px"
                           :src="'/api/files/download/'+img"
-                          fit="fill">
+                          fit="contian">
                                 <div slot="error" class="image-slot">
-                          <i class="el-icon-picture-outline"></i>
-                        </div>
-                        </el-image>
+                              <i class="el-icon-picture-outline"></i>
+                            </div></el-image>
                       </el-carousel-item>
                     </el-carousel>
                     <div style="padding: 14px;">
@@ -54,7 +58,12 @@
           style="float:right;">
         </el-pagination>
       </el-col>
-        <pick_company :companys.sync="selected_companys" style="position: absolute; bottom:250px; right: 0px" @click="show=!show" @selected="onOrderClick"></pick_company>
+        <pick_company
+          :companys.sync="selected_companys"
+          style="position: absolute; bottom:250px; right: 0px"
+          @click="show=!show"
+          @selected="onOrderClick"
+          @onDelete="handleDelete"></pick_company>
       </Sticky>
 
       <detail-dialog
@@ -113,13 +122,11 @@
         selected_company: {},
         detail_dialog_show: false,
         order_dialog_show: false,
-
         selected_companys: []
 
       }
     },
-    created() {
-    },
+    
     methods: {
       //Rewrite minxin onReset()  查询条件重置
       onTabClick() {
@@ -128,6 +135,21 @@
         this.pages._page = 1
         this.fetchData()
         this.selected_companys = []
+      },
+
+      updateLocal(data) {
+        this.data = []
+        data[this.resource_name + 's'].forEach((item) => {
+          item.picked = false
+          this.selected_companys.forEach(com => {
+            if(com.id === item.id) {
+              item.picked = true
+              return
+            }
+          })
+          this.data.push(item)
+        })
+        
       },
 
       onCardClick(company) {
@@ -165,6 +187,7 @@
       },
 
       onSelectClick(company, event) {
+        company.picked = true
         let exist = false
         this.selected_companys.forEach(element => {
           if(company.id === element.id) {
@@ -174,6 +197,13 @@
         });
         if(!exist)
           this.selected_companys.push(company)
+      },
+
+      handleDelete(id) {
+        this.data.forEach(item => {
+          if(item.id === id)
+            item.picked = false
+        })
       }
 
     },

@@ -4,7 +4,6 @@
       <el-carousel-item v-for="img in company.imgs" :key="img" style="text-align:center">
         <el-image
           :src="'/api/files/download/'+img"
-          style="width: 400px; height: 400px"
           fit="scale-down">
                 <div slot="error" class="image-slot">
         <i class="el-icon-picture-outline"></i>
@@ -13,10 +12,23 @@
       </el-carousel-item>
     </el-carousel>
     <div style="padding: 14px;">
-      <span>公司名称：{{company.name}}公司</span>
-      <div class="bottom clearfix">
-        <time class="time">{{ company.detail }}</time>
-      </div>
+      <el-form :model="company" label-width="80px">
+        <el-form-item label="公司名称" prop="name">
+          {{ company.name }}公司
+        </el-form-item>
+
+        <el-form-item label="公司法人" prop="owner">
+          {{ company.owner }}
+        </el-form-item>
+
+        <el-form-item label="联系电话" prop="tele">
+          {{ company.tele }}
+        </el-form-item>
+
+        <el-form-item label="公司描述" prop="detail">
+          {{ company.owner }}
+        </el-form-item>
+      </el-form>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleCancel">取 消</el-button>
