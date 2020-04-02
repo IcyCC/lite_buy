@@ -120,7 +120,7 @@
         this.fetchData()
       },
       onNewOK(obj) {
-        let params = { name: obj.name }
+        const params = { name: obj.name }
         this.queryMethod(params).then((res) => {
           if(res.data.total) {
             this.$message({
