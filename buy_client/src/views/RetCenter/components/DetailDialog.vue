@@ -5,7 +5,12 @@
         <el-image
           :src="'/api/files/download/'+img"
           style="width: 400px; height: 400px"
-          fit="scale-down"></el-image>
+          fit="scale-down">
+          
+                <div slot="error" class="image-slot">
+        <i class="el-icon-picture-outline"></i>
+      </div>
+          </el-image>
       </el-carousel-item>
     </el-carousel>
     <div style="padding: 14px;">

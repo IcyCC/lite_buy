@@ -10,14 +10,14 @@
       </el-form-item>
 
       <el-form-item label="联系电话" prop="tele">
-        <el-input v-model="data.tele" ref="tele"></el-input>
+        <el-input v-model.number="data.tele" ref="tele" type='tel'></el-input>
       </el-form-item>
 
       <el-form-item label="公司描述" prop="detail">
         <el-input v-model="data.detail" ref="detail"></el-input>
       </el-form-item>
 
-      <el-form-item label="产品类型" prop="production_kind">
+      <el-form-item label="负责产品" prop="production_kind">
         <el-checkbox-group v-model="data.production_kind">
           <el-checkbox v-for="kind in kinds" :label="kind.name" :key="kind.name" border>{{kind.name}}</el-checkbox>
         </el-checkbox-group>
@@ -98,6 +98,21 @@ export default {
       },
       selected_types: [],
       uploadRules: {
+        owner:  [{ required: true, message: '请输入法人名称', trigger: 'blur' }],
+        name:  [{ required: true, message: '请输入公司名称', trigger: 'blur' }],
+        tele: [{validator:  
+        (rule, value, callback) => {
+            if (!value) {
+              return callback(new Error('手机号不能为空'));
+            } else {
+              const reg = /^1[3|4|5|7|8][0-9]\d{8}$/
+              console.log(reg.test(value));
+              if (reg.test(value)) {
+                callback();
+              } else {
+                return callback(new Error('请输入正确的手机号'));
+              }}
+          }, trigger: 'blur'},{ required: true, message: '请输入正确的电话', trigger: 'blur' },],
       },
       kinds: [],
       pictureVisible: false,
