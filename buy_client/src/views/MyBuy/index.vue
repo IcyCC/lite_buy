@@ -19,11 +19,11 @@
           width="80">
         </el-table-column>
         <el-table-column
-          prop="company_name"
+          prop="scope.row.company"
           label="公司名称"
         >
           <template slot-scope="scope">
-            {{ scope.row.company_name }}公司
+            {{ scope.row.company.name }}公司
           </template>
         </el-table-column>
 

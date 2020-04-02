@@ -14,9 +14,8 @@
                     <el-carousel height="225px" width="125px">
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
-                                  style="width: 225px; height: 125px"
                           :src="'/api/files/download/'+img"
-                          fit="fill">
+                          fit="contain">
                                 <div slot="error" class="image-slot">
                           <i class="el-icon-picture-outline"></i>
                         </div>
