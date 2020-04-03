@@ -29,7 +29,7 @@
                       </el-carousel-item>
                     </el-carousel>
                     <div style="padding: 14px;">
-                      <span>公司名称：{{company.name}}公司</span>
+                      <span>公司名称：{{company.name}}</span>
                       <div class="bottom clearfix">
                         <div class="detail">{{ company.detail }}</div>
                         <div style="float: right; bottom:10px">
