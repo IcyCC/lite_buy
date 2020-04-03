@@ -14,7 +14,7 @@
     <div style="padding: 14px;">
       <el-form :model="company" label-width="80px">
         <el-form-item label="公司名称" prop="name">
-          {{ company.name }}公司
+          {{ company.name }}
         </el-form-item>
 
         <el-form-item label="公司法人" prop="owner">

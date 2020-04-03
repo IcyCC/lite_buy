@@ -23,7 +23,7 @@
           label="公司名称"
         >
           <template slot-scope="scope">
-            {{ scope.row.company.name }}公司
+            {{ scope.row.company.name }}
           </template>
         </el-table-column>
 

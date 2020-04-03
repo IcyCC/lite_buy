@@ -12,11 +12,12 @@
         <span slot="title">随机抽选</span>
         <div>
           <ul style="list-style-type:none">
-           <li v-for="company in companys" >
-             <el-button type="danger" icon="el-icon-delete" circle @click="onDeleteClick(company)"></el-button>
-             {{company.name}}公司
+           <li v-for="company in companys" :key="company.id" style="display: flex;justify-content:space-between;align-items:center;">
+            <p><i class="el-icon-info"></i>{{company.name}}</p>
+            <el-button type="text" @click="onDeleteClick(company)" style="padding-right:30px">删除</el-button>
            </li>
           </ul>
+          <el-divider content-position="right">选取清单</el-divider>
           <el-button type="primary" style="float: right;" @click="onRandomSelectClick">随机选取</el-button>
         </div>
       </el-drawer>
@@ -68,5 +69,5 @@
 </script>
 
 <style scoped>
-  ul li{margin:0;padding:0}
+  ul li{margin:0;padding:0;margin:0;padding:0;list-style:none;}
 </style>

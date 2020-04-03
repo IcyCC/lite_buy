@@ -13,10 +13,11 @@
                   <el-card
                     class="company-card"
                     :body-style="{ padding: '0px' }"
-                    style="cursor:pointer;"
+                    style="cursor:pointer;height:340px;"
                     v-loading="company.picked"
                     element-loading-spinner="el-icon-success"
-                    @click.native="onCardClick(company)">
+                    @click.native="onCardClick(company)"
+                    >
                     <el-carousel height="225px" width="125px">
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
@@ -30,8 +31,8 @@
                     <div style="padding: 14px;">
                       <span>公司名称：{{company.name}}公司</span>
                       <div class="bottom clearfix">
-                        <time class="time">{{ company.detail }}</time>
-                        <div style="float: right">
+                        <div class="detail">{{ company.detail }}</div>
+                        <div style="float: right; bottom:10px">
                             <el-button type="text" @click.stop="onSelectClick(company, $event)">选取</el-button>
                             <el-button style="padding-left: 20px" type="text" @click.stop="onOrderClick(company)">采购</el-button>
                         </div>
@@ -235,10 +236,19 @@
     margin-bottom: 10px;
   }
 
-  .time {
+  .detail {
     font-size: 13px;
     color: #999;
+display:-webkit-box;
+    text-overflow: ellipsis;
+     overflow:hidden;
+ -webkit-text-overflow:ellipsis;
+ -o-text-overflow:ellipsis;
+ 
+-webkit-box-orient:vertical;
+-webkit-line-clamp:2;
   }
+
 
   .bottom {
     margin-top: 13px;
