@@ -33,7 +33,7 @@ class DaoMetaClass(type):
 
         for c in table.c:
             attrs[c.name] = c.name
-            attrs['_lte_' + c.name] = '_lte_' + c.name
+            attrs['_gte_' + c.name] = '_gte_' + c.name
             attrs['_gt_' + c.name] = '_gt_' + c.name
 
             attrs['_lte_' + c.name] = '_lte_' + c.name
@@ -41,6 +41,7 @@ class DaoMetaClass(type):
 
             attrs['_like_' + c.name] = '_like_' + c.name
             attrs['_in_' + c.name] = '_in_' + c.name
+            attrs['_search_'+c.name] = '_search_'+c.name
 
         return type.__new__(cls, name, bases, attrs)
 
