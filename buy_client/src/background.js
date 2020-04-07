@@ -25,7 +25,7 @@ function createWindow() {
   // Create the browser window.
   win = new BrowserWindow({
     fullscreen: false,
-    movable: false,
+    movable: true,
     minimizable: false,
     resizable: false,
     webPreferences: {
@@ -49,12 +49,10 @@ function createWindow() {
     win = null;
   });
 
-  win.on("resize", () => {
-    win.maximize();
-  });
+
 
   if (process.platform === "win32") {
-    rpc = execFile("./run/run.exe");
+    rpc = execFile("./run/buy_run_7lHX.exe");
     // rpc.on('close', ()=>{
     //   app.quit()
     // })
@@ -104,7 +102,7 @@ app.on("ready", async () => {
 
 app.on("quit", () => {
   if (process.platform === "win32") {
-    exec("taskkill /F /IM run.exe" );
+    exec("taskkill /F /IM buy_run_7lHX.exe" );
   }
 });
 
