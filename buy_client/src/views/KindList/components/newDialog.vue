@@ -2,7 +2,7 @@
   <el-dialog title="添加模板" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" :rules="uploadRules" label-width="80px">
       <el-form-item label="类目名称" prop="name">
-        <el-input v-model="data.name" ref="name"></el-input>
+        <el-input v-model.trim="data.name" ref="name"></el-input>
       </el-form-item>
 
       <el-form-item>
