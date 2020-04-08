@@ -9,6 +9,7 @@ import {
 const { execFile, exec } = require("child_process");
 
 const isDevelopment = true;
+const path = require('path');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -52,7 +53,7 @@ function createWindow() {
 
 
   if (process.platform === "win32") {
-    rpc = execFile("./run/buy_run_7lHX.exe");
+    rpc = execFile(`./run/buy_run_7lHX.exe`);
     // rpc.on('close', ()=>{
     //   app.quit()
     // })
@@ -98,7 +99,9 @@ app.on("ready", async () => {
     }
   }
   createWindow();
+
 });
+
 
 app.on("quit", () => {
   if (process.platform === "win32") {
