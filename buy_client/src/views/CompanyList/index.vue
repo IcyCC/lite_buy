@@ -38,9 +38,27 @@
         <el-table-column
           prop="name"
           label="公司名称"
+          width="150"
+          >
+        </el-table-column>
+        <el-table-column
+          prop="imgs"
+          label="图片"
+          align="center"
           >
           <template slot-scope="scope">
-            {{ scope.row.name }}
+            <el-carousel height="50px" class="table-carousel" indicator-position="none">
+              <el-carousel-item v-for="img in scope.row.imgs" :key="img">
+                <el-image
+                  :src="getDonwloadImageUrl(img)"
+                  indicator-position="none"
+                  style="height:100%;"
+                  fit="scale-down">
+                        <div slot="error" class="image-slot">
+                      <i class="el-icon-picture-outline"></i>
+                    </div></el-image>
+              </el-carousel-item>
+            </el-carousel>
           </template>
         </el-table-column>
         <el-table-column
@@ -115,6 +133,7 @@
 
   import CreatorDialog from './components/newDialog.vue'
   import UpdateDialog from './components/updateDialog.vue'
+  import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
 
   export default {
     mixins: [commonTable],
@@ -172,7 +191,9 @@
 
         }).catch(() => {
         });
-      }
+      },
+
+      getDonwloadImageUrl(img) {return getDonwloadImageUrl(img)}
 
     },
     mounted() {

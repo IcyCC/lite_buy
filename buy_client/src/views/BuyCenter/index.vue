@@ -22,7 +22,8 @@
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
                           :src="getDonwloadImageUrl(img)"
-                          fit="contian">
+                          style="height:100%;"
+                          fit="scale-down">
                                 <div slot="error" class="image-slot">
                               <i class="el-icon-picture-outline"></i>
                             </div></el-image>
