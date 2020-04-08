@@ -4,6 +4,7 @@
       <el-carousel-item v-for="img in company.imgs" :key="img" style="text-align:center">
         <el-image
           :src="getDonwloadImageUrl(img)"
+          style="height:100%;"
           fit="scale-down">
                 <div slot="error" class="image-slot">
         <i class="el-icon-picture-outline"></i>
