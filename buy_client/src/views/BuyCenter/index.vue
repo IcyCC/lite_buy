@@ -14,11 +14,12 @@
                     class="company-card"
                     :body-style="{ padding: '0px' }"
                     style="cursor:pointer;height:340px;"
-                    v-loading="company.picked"
-                    element-loading-spinner="el-icon-success"
                     @click.native="onCardClick(company)"
                     >
-                    <el-carousel height="225px" width="125px">
+                    <el-carousel height="225px" width="125px"
+                                        v-loading="company.picked"
+                    element-loading-spinner="el-icon-success"
+                    >
                       <el-carousel-item v-for="img in company.imgs" :key="img">
                         <el-image
                           :src="getDonwloadImageUrl(img)"
@@ -34,7 +35,13 @@
                       <div class="bottom clearfix">
                         <div class="detail">{{ company.detail }}</div>
                         <div style="float: right; bottom:10px">
+              
+                            <template v-if="company.picked">
+              <el-button type="text" @click.stop="onCancelSelectClick(company, $event)"> 取消</el-button>
+                            </template>
+                                                      <template v-else>
                             <el-button type="text" @click.stop="onSelectClick(company, $event)">选取</el-button>
+                            </template>
                             <el-button style="padding-left: 20px" type="text" @click.stop="onOrderClick(company)">采购</el-button>
                         </div>
 
@@ -204,6 +211,11 @@
           this.selected_companys.push(company)
       },
 
+      onCancelSelectClick(company, event) {
+        company.picked = false
+        let exist = false
+        this.selected_companys = this.selected_companys.filter((item)=>{ return item.id != company.id})
+      },
       handleDelete(id) {
         this.data.forEach(item => {
           if(item.id === id)
