@@ -4,7 +4,7 @@ const commonTable = {
       resource_name: 'data',
       data: [],
       total: 0,
-      pages: { _page: 1, _per_page: 30 },
+      pages: { _page: 1, _per_page: 15 },
       query: {},
       order: { _order_by: 'id', _desc: true },
       selected_data: {},

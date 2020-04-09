@@ -28,7 +28,7 @@ function createWindow() {
     fullscreen: false,
     movable: true,
     minimizable: false,
-    resizable: false,
+    resizable: true,
     webPreferences: {
       nodeIntegration: true,
       webSecurity: false

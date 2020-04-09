@@ -135,7 +135,9 @@ export default {
       })
       this.data.imgs = []
       tmp_files.forEach(f => {
-        this.data.imgs.push(f.name)
+        if (f.name){
+          this.data.imgs.push(f.name)
+        }
       })
     },
 
