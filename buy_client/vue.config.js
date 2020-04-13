@@ -52,16 +52,10 @@ module.exports = {
   },
   pluginOptions:{
     electronBuilder: {
-      nsis: {
-        oneClick: true,
-        createDesktopShortcut: true,
-        allowToChangeInstallationDirectory: true,
-        createStartMenuShortcut: true
-       },
       builderOptions: {
         // artifactName : '播放器 v1.0.exe',
         // productName: "播放器",
-         artifactName : '商品采购终端 v1.4.exe',
+         artifactName : '商品采购终端 v1.7.exe',
          productName: "商品采购终端",
 		 appId: "com.suchang.lite_buy.app",
 		 win: {
@@ -69,9 +63,10 @@ module.exports = {
             icon: "./logo.png" 		
 		 },
          nsis: {
-          oneClick: true,
+          oneClick: false,
           createDesktopShortcut: true,
-          createStartMenuShortcut: true
+          createStartMenuShortcut: true,
+		  allowToChangeInstallationDirectory: true,
          },
          extraFiles:[{
           from: "./run",

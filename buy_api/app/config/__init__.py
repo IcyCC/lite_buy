@@ -16,7 +16,7 @@ class Config:
 
 print(Config.SQLITE_FILE)
 
-if not Config.LITE_APP_DATA:
+if not os.path.exists(Config.LITE_APP_DATA):
     os.mkdir(Config.LITE_APP_DATA)
 
 if not os.path.exists(Config.SQLITE_FILE):
