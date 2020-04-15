@@ -33,3 +33,39 @@ class ResultHandler(easyapi.FlaskBaseHandler):
 
 
 easyapi.register_api(app=results_bp, view=ResultHandler, endpoint='result_api', url='/results')
+
+
+
+
+experts_bp = Blueprint(name='experts', import_name='experts', url_prefix='')
+
+
+class ExpertHandler(easyapi.FlaskBaseHandler):
+    __controller__ = controller.ExpertController
+
+
+easyapi.register_api(app=experts_bp, view=ExpertHandler, endpoint='expert_api', url='/experts')
+
+
+
+
+productions_bp = Blueprint(name='productions', import_name='productions', url_prefix='')
+
+
+class ProductionHandler(easyapi.FlaskBaseHandler):
+    __controller__ = controller.ProductionController
+
+
+easyapi.register_api(app=productions_bp, view=ProductionHandler, endpoint='production_api', url='/productions')
+
+
+
+
+employments_bp = Blueprint(name='employments', import_name='employments', url_prefix='')
+
+
+class EmploymentHandler(easyapi.FlaskBaseHandler):
+    __controller__ = controller.EmploymentController
+
+
+easyapi.register_api(app=employments_bp, view=EmploymentHandler, endpoint='employment_api', url='/employments')
