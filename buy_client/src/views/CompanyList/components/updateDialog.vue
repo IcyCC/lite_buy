@@ -66,7 +66,7 @@
 
       <el-form-item label="公司产品" prop="productions">
         <el-button type="primary" @click.stop="onAddProductionClick()">添加产品</el-button>
-        <el-row :gutter="20" style="min-height: 500px">
+        <el-row :gutter="20">
           <el-col :span="6" v-for="production in data.productions" :key="production.id" style="padding-top: 20px">
             <el-card
               :body-style="{ padding: '0px' }"
