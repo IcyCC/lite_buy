@@ -52,6 +52,12 @@
         </el-table-column>
 
         <el-table-column
+          prop="content"
+          label="项目内容"
+        >
+        </el-table-column>
+
+        <el-table-column
           prop="created_at"
           label="时间"
         >
@@ -59,6 +65,13 @@
 
         <el-table-column label="操作">
           <template slot-scope="scope">
+            <el-button
+              size="mini"
+              @click="onCommentClick(scope.$index, scope.row)">评论</el-button>
+            <el-button
+              size="mini"
+              type="primary"
+              @click="onUpdateClick(scope.$index, scope.row)">更新</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -79,11 +92,19 @@
         </el-pagination>
       </el-col>
 
-      <CreatorDialog
-        :visible="newDialogShow"
-        @onOK="onNewOK"
-        @onCancel="onNewCancel">
-      </CreatorDialog>
+      <UpdateDialog
+        :visible="updateDialogShow"
+        :data="selected_data"
+        @onOK="onUpdateOK"
+        @onCancel="onUpdateCancel">
+      </UpdateDialog>
+
+      <CommentDialog
+        :visible="commentDialogShow"
+        :data="selected_data"
+        @onOK="onCommentOK"
+        @onCancel="onCommentCancel">
+      </CommentDialog>
 
     </div>
   </div>
@@ -95,11 +116,12 @@
   //视频接口
   import { queryResults, deleteResult, updateResult, getResult, createResult } from '@/api/results'
 
-  import CreatorDialog from './components/newDialog.vue'
+  import UpdateDialog from './components/updateDialog'
+  import CommentDialog from './components/commentDialog'
 
   export default {
     mixins: [commonTable],
-    components: { CreatorDialog },
+    components: { UpdateDialog, CommentDialog },
     data() {
       return {
         //配置minxin种curd api方法：
@@ -119,6 +141,8 @@
 
         data: [],  //列表
 
+        commentDialogShow: false
+
       }
     },
     created() {
@@ -133,9 +157,27 @@
         this.pages._page = 1
         this.fetchData()
       },
-
-
-
+      onCommentClick(index, row) {
+        this.getMethod(row.id).then((resp) => {
+          this.selected_data = resp.data[this.resource_name]
+        })
+        this.commentDialogShow = true
+      },
+      onCommentOK(obj) {
+        this.updateMethod(this.selected_data.id, obj).then((res) => {
+          if (res.data.code === 200) {
+            this.commentDialogShow = false
+            this.$message({
+              type: 'success',
+              message: '评论成功'
+            })
+            return this.fetchData()
+          }
+        })
+      },
+      onCommentCancel() {
+        this.commentDialogShow = false
+      },
     },
     mounted() {
       // window.vue = this

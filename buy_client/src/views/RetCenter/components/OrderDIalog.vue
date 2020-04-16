@@ -9,6 +9,10 @@
         <el-input v-model="data.created_by"></el-input>
       </el-form-item>
 
+      <el-form-item label="项目内容" prop="content">
+        <el-input v-model="data.content"></el-input>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="handleSubmit">提交</el-button>
         <el-button @click="handleCancel">取消</el-button>
@@ -31,6 +35,7 @@ export default {
         company_id: 0,
         type: '租赁',
         production_type: '',
+        content: '',
         created_by: ''
       }
     }
