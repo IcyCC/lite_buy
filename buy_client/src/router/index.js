@@ -136,6 +136,23 @@ export const constantRoutes = [
     ]
   },
 
+  {
+    path: '/employment',
+    component: Layout,
+    redirect: 'employment',
+    meta: { title: '雇佣结果'},
+    children: [{
+      path: 'employment',
+      name: '雇佣结果',
+      meta: {
+        title: "雇佣结果",
+        icon: 'employment'
+      },
+      component: () => import('@/views/MyEmployment/index'),
+    }
+    ]
+  },
+
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

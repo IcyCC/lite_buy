@@ -71,7 +71,7 @@
           :companys.sync="selected_companys"
           style="position: absolute; bottom:250px; right: 0px"
           @click="show=!show"
-          @selected="onOrderClick"
+          @selected="handleSelected"
           @onDelete="handleDelete"></pick_company>
       </Sticky>
 
@@ -90,6 +90,13 @@
         @onOK="onOrderDialogOK">
       </order-dialog>
 
+      <pick-dialog
+        :visible="pick_dialog_show"
+        :companys="pre_order_companys"
+        @onOK="handlePickedOK"
+        @onCancel="handlePickedCancel">
+      </pick-dialog>
+
     </div>
   </div>
 </template>
@@ -106,10 +113,11 @@
   import { createResult } from '@/api/results'
   import { queryKinds } from '@/api/kinds'
   import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
+  import PickDialog from './components/PickDialog'
 
   export default {
     mixins: [commonTable],
-    components: { Sticky, pick_company, DetailDialog, OrderDialog },
+    components: { Sticky, pick_company, DetailDialog, OrderDialog, PickDialog },
     data() {
       return {
         kinds: [],
@@ -131,7 +139,9 @@
         selected_company: {},
         detail_dialog_show: false,
         order_dialog_show: false,
-        selected_companys: []
+        selected_companys: [],
+        pre_order_companys: [],
+        pick_dialog_show: false
 
       }
     },
@@ -221,6 +231,20 @@
           if(item.id === id)
             item.picked = false
         })
+      },
+
+      handleSelected(arr) {
+        this.pre_order_companys = arr
+        this.pick_dialog_show = true
+      },
+
+      handlePickedOK(company) {
+        this.pick_dialog_show = false
+        this.onOrderClick(company)
+      },
+
+      handlePickedCancel() {
+        this.pick_dialog_show = false
       }
 
     },

@@ -10,6 +10,9 @@
           <el-form-item label="公司名字：">
             <el-input v-model="query._like_name" placeholder="请输入公司名字"></el-input>
           </el-form-item>
+          <el-form-item label="产品类型：">
+            <el-input v-model="query._search_production_kind" placeholder="请输入产品类型"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSearch">查询</el-button>
           </el-form-item>
@@ -153,7 +156,8 @@
 
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
-          _like_name: undefined
+          _like_name: undefined,
+          _search_production_kind: undefined
         },
 
         data: [],  //列表
@@ -166,7 +170,8 @@
       //Rewrite minxin onReset()  查询条件重置
       onReset() {
         this.query = {  //条件查询 dict
-          _like_name: undefined
+          _like_name: undefined,
+          _search_production_kind: undefined
         }
         this.order = { _order_by: 'id', _desc: true } //order 在
         this.pages._page = 1

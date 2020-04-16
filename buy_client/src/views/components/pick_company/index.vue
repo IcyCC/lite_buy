@@ -18,6 +18,7 @@
            </li>
           </ul>
           <el-divider content-position="right">选取清单</el-divider>
+          <el-input-number v-model="num" :min="1" :max="companys.length"></el-input-number>
           <el-button type="primary" style="float: right;" @click="onRandomSelectClick">随机选取</el-button>
         </div>
       </el-drawer>
@@ -35,6 +36,7 @@
         data: function () {
           return {
             drawer: false,
+            num: 1
           }
         },
         methods: {
@@ -47,22 +49,22 @@
           },
           onRandomSelectClick() {
             if(this.companys.length) {
-              let n = this.randomNum(0, this.companys.length)
-              this.$emit('selected', this.companys[n])
+              let res = this.randomNum(this.companys, this.num)
+              this.$emit('selected', res)
             }
           },
-          randomNum(minNum, maxNum) {
-            switch (arguments.length) {
-              case 1:
-                return parseInt(Math.random() * minNum, 10);
-                break;
-              case 2:
-                return parseInt(Math.random() * ( maxNum - minNum ) + minNum, 10);
-                break;
-              default:
-                return 0;
-                break;
+          randomNum(arr, count) {
+            var shuffled = arr.slice(0),
+              i = arr.length,
+              min = i - count,
+              temp, index;
+            while(i-- > min) {
+              index = Math.floor((i + 1) * Math.random());
+              temp = shuffled[index];
+              shuffled[index] = shuffled[i];
+              shuffled[i] = temp;
             }
+            return shuffled.slice(min)
           }
         }
     }

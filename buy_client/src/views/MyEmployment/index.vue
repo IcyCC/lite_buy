@@ -4,9 +4,6 @@
 
     <div class="app-container">
       <!-- <div>模板列表</div> -->
-
-
-
       <el-table
         :data="data"
         v-loading="tableLoading"
@@ -19,35 +16,17 @@
           width="80">
         </el-table-column>
         <el-table-column
-          prop="scope.row.company"
-          label="公司名称"
+          prop="scope.row.expert"
+          label="专家名"
         >
           <template slot-scope="scope">
-            {{ scope.row.company.name }}
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          prop="type"
-          label="中标类型"
-        >
-          <template slot-scope="scope">
-            <el-tag >{{scope.row.type}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          prop="production_type"
-          label="产品类型"
-        >
-          <template slot-scope="scope">
-            <el-tag >{{scope.row.production_type}}</el-tag>
+            {{ scope.row.expert.name }}
           </template>
         </el-table-column>
 
         <el-table-column
           prop="created_by"
-          label="采购/租赁人"
+          label="雇佣人"
         >
         </el-table-column>
 
@@ -114,7 +93,7 @@
   //mixin
   import commonTable from '@/mixins/table'
   //视频接口
-  import { queryResults, deleteResult, updateResult, getResult, createResult } from '@/api/results'
+  import { queryEmployments, deleteEmployment, updateEmployment, getEmployment, createEmployment } from '@/api/employment'
 
   import UpdateDialog from './components/updateDialog'
   import CommentDialog from './components/commentDialog'
@@ -125,19 +104,15 @@
     data() {
       return {
         //配置minxin种curd api方法：
-        newMethod: createResult,
-        deleteMethod: deleteResult,
-        updateMethod: updateResult,
-        getMethod: getResult,
-        queryMethod: queryResults,
+        newMethod: createEmployment,
+        deleteMethod: deleteEmployment,
+        updateMethod: updateEmployment,
+        getMethod: getEmployment,
+        queryMethod: queryEmployments,
 
         //配置resource_name
-        resource_name: 'result',
+        resource_name: 'employment',
 
-        //配置mixin query
-        query: {  //条件查询 dict  //api查询条件dict
-          _like_name: undefined
-        },
 
         data: [],  //列表
 
