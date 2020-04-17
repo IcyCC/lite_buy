@@ -62,7 +62,7 @@ export const constantRoutes = [
         path: 'buy',
         name: '采购中心',
         component: () => import('@/views/BuyCenter/index'),
-        meta: { 
+        meta: {
           title: "采购中心",
           icon: 'buycenter'
         }
@@ -114,6 +114,15 @@ export const constantRoutes = [
         meta: {
           title: "类目管理",
           icon: 'kindmanager'
+        }
+      },
+      {
+        path: 'expert',
+        name: '专家管理',
+        component: () => import('@/views/expert/index'),
+        meta: {
+          title: "专家管理",
+          icon: 'expert'
         }
       },
     ]
@@ -174,8 +183,8 @@ export const asyncRoutes = [
   //   ]
   // },
 
- 
- 
+
+
 ]
 
 const createRouter = () => new Router({
