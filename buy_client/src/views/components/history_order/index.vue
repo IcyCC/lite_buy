@@ -41,6 +41,12 @@
         </el-table-column>
 
         <el-table-column
+          prop="comment"
+          label="评价"
+        >
+        </el-table-column>
+
+        <el-table-column
           prop="created_at"
           label="时间"
         >

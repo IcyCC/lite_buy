@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加产品" :visible="visible" @close="handleCancel" append-to-body>
+  <el-dialog :visible="visible" @close="handleCancel" append-to-body>
     <el-form :model="data" ref="data" label-width="80px">
       <el-form-item label="产品名称" prop="name">
         <el-input v-model.trim="data.name" ref="name"></el-input>

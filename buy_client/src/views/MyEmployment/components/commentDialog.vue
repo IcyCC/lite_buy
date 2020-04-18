@@ -1,7 +1,7 @@
 <template>
   <el-dialog title="评论" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" label-width="80px">
-      <el-form-item label="专家名" prop="name">
+      <!-- <el-form-item label="专家名" prop="name">
         <el-input v-model="data.expert.name" ref="name" disabled></el-input>
       </el-form-item>
 
@@ -11,7 +11,7 @@
 
       <el-form-item label="项目内容" prop="content">
         <el-input v-model="data.content" ref="content" disabled></el-input>
-      </el-form-item>
+      </el-form-item> -->
 
       <el-form-item label="评论" prop="comment">
         <el-input type="textarea" v-model="data.comment" ref="comment"></el-input>

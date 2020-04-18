@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加专家" :visible="visible" @close="handleCancel">
+  <el-dialog title="查看专家信息" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" :rules="uploadRules" label-width="80px">
       <el-form-item label="专家姓名" prop="name">
         <el-input v-model.trim="data.name" ref="name"></el-input>

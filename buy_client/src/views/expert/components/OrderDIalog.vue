@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible="visible" @close="handleCancel">
+  <el-dialog title="雇佣" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" label-width="80px">
       <el-form-item label="专家名称">
         <el-input v-model="expert.name" disabled></el-input>
