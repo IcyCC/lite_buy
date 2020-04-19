@@ -18,7 +18,14 @@ router.beforeEach(async(to, from, next) => {
   document.title = getPageTitle(to.meta.title)
   const accessRoutes = await store.dispatch('permission/generateRoutes', [])
   router.addRoutes(accessRoutes)
-  next()
+  if (store.getters.isLock && to.path !== '/login') {
+    next({
+      path: '/login'
+    })
+  } else {
+    next()
+  }
+
   NProgress.done()
 
 })

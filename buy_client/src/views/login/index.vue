@@ -1,30 +1,15 @@
 <template>
-  <div class="login-container">
+  <div class="login-container" id="particles-js">
     <el-form
       ref="loginForm"
       :model="loginForm"
-      :rules="loginRules"
       class="login-form"
       auto-complete="on"
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">视频分发系统客户端</h3>
+        <h3 class="title">文化用品管理终端</h3>
       </div>
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          auto-complete="on"
-        />
-      </el-form-item>
 
       <el-form-item prop="password">
         <span class="svg-container">
@@ -58,36 +43,15 @@
 
 <script>
 import { validUsername } from "@/utils/validate";
+import particles from 'particles.js'
+import particlesConfig from '@/assets/particles.json'
 
 export default {
   name: "Login",
   data() {
-    const validateUsername = (rule, value, callback) => {
-      if (!validUsername(value)) {
-        callback(new Error('请输入正确的用户名'));
-      } else {
-        callback();
-      }
-    };
-    const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('密码不能小于6位'));
-      } else {
-        callback();
-      }
-    };
     return {
       loginForm: {
-        username: "admin",
-        password: "111111"
-      },
-      loginRules: {
-        username: [
-          { required: true, trigger: "blur", validator: validateUsername }
-        ],
-        password: [
-          { required: true, trigger: "blur", validator: validatePassword }
-        ]
+        password: ""
       },
       loading: false,
       passwordType: "password",
@@ -118,23 +82,42 @@ export default {
         if (valid) {
           this.loading = true;
           this.$store
-            .dispatch("user/login", this.loginForm)
+            .dispatch("lock/unlock", this.loginForm.password)
             .then(() => {
               this.$router.push({ path: this.redirect || "/" });
               this.loading = false;
             })
             .catch(() => {
+              this.$message({
+                message: "密码错误！",
+                type: 'error'
+              });
               this.loading = false;
             });
         } else {
-          console.log("error submit!!");
+          
           return false;
         }
       });
     }
+  },
+  mounted() {
+    particlesJS('particles-js', particlesConfig)
   }
 };
 </script>
+
+<style scoped>
+#particles-js{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #b61924;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+}
+</style>
 
 <style lang="scss">
 /* 修复input 背景不协调 和光标变色 */
