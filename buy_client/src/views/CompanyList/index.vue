@@ -32,7 +32,7 @@
         v-loading="tableLoading"
         @sort-change="onSort">
 
-      <el-table-column type="expand">
+      <el-table-column type="expand" label="历史订单" width="120">
         <template slot-scope="props">
           <HistoryOrder :company_id="props.row.id"></HistoryOrder>
         </template>
