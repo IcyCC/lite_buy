@@ -8,3 +8,13 @@ export const getUploadImageUrl = () =>{
 export const getDonwloadImageUrl = (img) =>{
     return  SERVER_URL+'/files/download/'+img
 }
+
+export const checkPassword = (password) => {
+    return new Promise((resolve, reject) => {
+        if(password === "1111") {
+            resolve()
+        } else {
+            reject()
+        }
+    })
+}

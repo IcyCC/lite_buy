@@ -55,7 +55,7 @@ module.exports = {
       builderOptions: {
         // artifactName : '播放器 v1.0.exe',
         // productName: "播放器",
-         artifactName : '商品采购终端 v1.7.exe',
+         artifactName : '商品采购终端 v1.8.exe',
          productName: "商品采购终端",
 		 appId: "com.suchang.lite_buy.app",
 		 win: {

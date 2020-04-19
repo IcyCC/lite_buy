@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" style="overflow:scroll;">
     <el-alert v-if="loading" type="error" title="失去本地服务的链接, 马上重试"></el-alert>
     <router-view v-loading="loading" />
   </div>
@@ -32,4 +32,5 @@ export default {
   .company-card .el-loading-spinner i {
     zoom: 300% !important;
   }
+
 </style>
