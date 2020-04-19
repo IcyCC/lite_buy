@@ -30,6 +30,12 @@
         v-loading="tableLoading"
         @sort-change="onSort">
 
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <HistoryOrder :expert_id="props.row.id"></HistoryOrder>
+        </template>
+      </el-table-column>
+
         <el-table-column
           prop="id"
           label="id"
@@ -124,10 +130,11 @@
   import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
   import OrderDialog from './components/OrderDIalog'
   import { createEmployment } from '@/api/employment'
+  import HistoryOrder from './components/historyOrder'
 
   export default {
     mixins: [commonTable],
-    components: {CreatorDialog, UpdateDialog,OrderDialog},
+    components: {CreatorDialog, UpdateDialog, OrderDialog, HistoryOrder},
     name: "index",
     data() {
       return {

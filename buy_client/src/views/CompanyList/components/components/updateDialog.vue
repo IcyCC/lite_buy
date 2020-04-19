@@ -55,6 +55,12 @@ import { queryKinds } from '@/api/kinds'
 
 export default {
   mixins: [commonNewDialog],
+  data() {
+    return {
+      kinds: []
+
+    };
+  },
   methods: {
     //获取部门信息
 

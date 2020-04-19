@@ -71,7 +71,7 @@
             <el-card
               :body-style="{ padding: '0px' }"
               style="height:340px;">
-              <el-carousel height="200px" width="125px">
+              <el-carousel height="120px" type="card">
                 <el-carousel-item v-for="img in production.imgs" :key="img">
                   <el-image
                     :src="getDonwloadImageUrl(img)"
@@ -82,16 +82,15 @@
                       </div></el-image>
                 </el-carousel-item>
               </el-carousel>
-              <div style="padding: 14px;">
+              <div style="padding: 14px;overflow:auto;height:140px;">
                 <span>产品名称：{{production.name}}</span>
                 <div class="bottom clearfix">
                   <div class="detail">{{ production.detail }}</div>
-                  <div style="float: right; bottom:10px">
-                    <el-button @click.stop="onProductionUpdateClick(production, $event)" plain>修改</el-button>
-                    <el-button type="danger" @click.stop="onProductionDeleteClick(production.id, $event)" plain>删除</el-button>
-                  </div>
-
                 </div>
+              </div>
+              <div style="float: right; bottom:10px;">
+                <el-button size="mini" @click.stop="onProductionUpdateClick(production, $event)" plain>查看</el-button>
+                <el-button size="mini" type="danger" @click.stop="onProductionDeleteClick(production.id, $event)" plain>删除</el-button>
               </div>
             </el-card>
           </el-col>

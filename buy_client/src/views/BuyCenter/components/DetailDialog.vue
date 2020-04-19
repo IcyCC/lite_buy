@@ -36,7 +36,7 @@
               <el-card
                 :body-style="{ padding: '0px' }"
                 style="height:300px;">
-                <el-carousel height="200px" width="125px">
+                <el-carousel height="120px" type="card">
                   <el-carousel-item v-for="img in production.imgs" :key="img">
                     <el-image
                       :src="getDonwloadImageUrl(img)"
@@ -47,7 +47,7 @@
                       </div></el-image>
                   </el-carousel-item>
                 </el-carousel>
-                <div style="padding: 14px;">
+                <div style="padding: 14px;overflow:auto;height:180px;">
                   <span>产品名称：{{production.name}}</span>
                   <div class="bottom clearfix">
                     <div class="detail">{{ production.detail }}</div>
