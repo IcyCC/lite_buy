@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :visible="visible" @close="handleCancel">
+  <el-dialog :visible="visible" @close="handleCancel" append-to-body>
     <el-row :gutter="20" style="min-height: 500px">
       <el-col :span="6" v-for="company in companys" :key="company.id" style="padding-top: 20px">
         <el-card
@@ -30,27 +30,65 @@
         </el-card>
       </el-col>
     </el-row>
+    <span slot="footer" class="dialog-footer">
+      <el-button type="primary" @click="handleOK">批量采购</el-button>
+    </span>
+
+    <batch-order-dialog
+      :visible="orderdialogshow"
+      :production_type="production_type"
+      @onCancel="onOrderCancel"
+      @onOK="onOrderOK">
+    </batch-order-dialog>
   </el-dialog>
 </template>
 <script>
 import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
+import BatchOrderDialog from './BatchOrderDialog'
+import { createResult } from '@/api/results'
 export default {
   props: {
     visible: Boolean,
     companys: Array,
+    production_type: String,
     onCancel: Function,
     onOK: Function
   },
+  components: { BatchOrderDialog },
   data() {
     return {
+      orderdialogshow: false
     }
   },
   methods: {
+    handleSubmit(company) {
+      this.$emit('onOK', company)
+    },
     handleCancel() {
       this.$emit('onCancel')
     },
-    handleSubmit(company) {
-      this.$emit('onOK', company)
+    handleOK() {
+      this.orderdialogshow = true
+    },
+    onOrderCancel() {
+      this.orderdialogshow = false
+    },
+    onOrderOK(obj) {
+      this.companys.forEach(element => {
+        obj.company_id = element.id
+        let cp = {}
+        Object.assign(cp, obj)
+        createResult(cp).then((res) => {
+          if (res.data.code === 200) {
+            this.$message({
+              type: 'success',
+              message: '采购信息提交成功'
+            })
+          }
+        })
+      });
+      this.orderdialogshow = false
+      this.$emit('onCancel')
     },
         getDonwloadImageUrl(img) {return getDonwloadImageUrl(img)},
     getUploadImageUrl() {return getUploadImageUrl()},

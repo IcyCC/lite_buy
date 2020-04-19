@@ -60,7 +60,7 @@
       </el-form>
 
       <el-divider>历史订单</el-divider>
-      <HistoryOrder :company_id="company.id"></HistoryOrder>
+      <HistoryOrder :company_id="company_id"></HistoryOrder>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleCancel">取 消</el-button>
@@ -89,6 +89,11 @@ export default {
     },
     handleOK() {
       this.$emit('onOK')
+    }
+  },
+  computed: {
+    company_id() {
+      return this.company.id
     }
   },
   mounted() {

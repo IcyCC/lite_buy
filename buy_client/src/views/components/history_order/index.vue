@@ -108,6 +108,14 @@
     methods: {
       //Rewrite minxin onReset()  查询条件重置
     },
+    watch: {
+      company_id(val) {
+        this.query = {  //条件查询 dict  //api查询条件dict
+          company_id: this.company_id
+        }
+        this.fetchData()
+      }
+    },
     mounted() {
       // window.vue = this
 

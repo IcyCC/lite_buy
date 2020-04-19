@@ -95,7 +95,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="onUpdateClick(scope.$index, scope.row)">修改</el-button>
+              @click="onUpdateClick(scope.$index, scope.row)">查看</el-button>
             <el-button
             size="mini"
             type="danger"
