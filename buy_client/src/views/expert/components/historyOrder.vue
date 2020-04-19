@@ -11,26 +11,8 @@
         @sort-change="onSort">
 
         <el-table-column
-          prop="type"
-          label="中标类型"
-        >
-          <template slot-scope="scope">
-            <el-tag >{{scope.row.type}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column
-          prop="production_type"
-          label="产品类型"
-        >
-          <template slot-scope="scope">
-            <el-tag >{{scope.row.production_type}}</el-tag>
-          </template>
-        </el-table-column>
-
-        <el-table-column
           prop="created_by"
-          label="采购/租赁人"
+          label="雇佣人"
         >
         </el-table-column>
 
@@ -74,29 +56,29 @@
   //mixin
   import commonTable from '@/mixins/table'
   //视频接口
-  import { queryResults, deleteResult, updateResult, getResult, createResult } from '@/api/results'
+  import { queryEmployments, deleteEmployment, updateEmployment, getEmployment, createEmployment } from '@/api/employment'
 
   export default {
     name: 'history-order',
     mixins: [commonTable],
     props: {
-      company_id: Number
+      expert_id: Number
     },
     data() {
       return {
         //配置minxin种curd api方法：
-        newMethod: createResult,
-        deleteMethod: deleteResult,
-        updateMethod: updateResult,
-        getMethod: getResult,
-        queryMethod: queryResults,
+        newMethod: createEmployment,
+        deleteMethod: deleteEmployment,
+        updateMethod: updateEmployment,
+        getMethod: getEmployment,
+        queryMethod: queryEmployments,
 
         //配置resource_name
-        resource_name: 'result',
+        resource_name: 'employment',
 
         //配置mixin query
         query: {  //条件查询 dict  //api查询条件dict
-          company_id: this.company_id
+          expert_id: this.expert_id
         },
 
         data: [],  //列表
@@ -107,14 +89,6 @@
     },
     methods: {
       //Rewrite minxin onReset()  查询条件重置
-    },
-    watch: {
-      company_id(val) {
-        this.query = {  //条件查询 dict  //api查询条件dict
-          company_id: this.company_id
-        }
-        this.fetchData()
-      }
     },
     mounted() {
       // window.vue = this

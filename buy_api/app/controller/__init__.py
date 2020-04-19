@@ -17,6 +17,8 @@ class CompanyController(easyapi.BaseController):
         data = super().formatter(ctx, data)
         productions = []
         for production_id in data['productions']:
+            if(production_id == ""):
+                break
             productions.append(
                 dao.ProductionDao.get(ctx=ctx, query={
                     "id": production_id

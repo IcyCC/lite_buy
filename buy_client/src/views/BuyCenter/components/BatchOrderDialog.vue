@@ -1,11 +1,8 @@
 <template>
-  <el-dialog title="雇佣" :visible="visible" @close="handleCancel">
+  <el-dialog :title="production_type+'采购'" :visible="visible" @close="handleCancel" append-to-body>
     <el-form :model="data" ref="data" label-width="80px">
-      <el-form-item label="专家名称">
-        <el-input v-model="expert.name" disabled></el-input>
-      </el-form-item>
 
-      <el-form-item label="雇佣人" prop="created_by">
+      <el-form-item label="采购人" prop="created_by">
         <el-input v-model="data.created_by"></el-input>
       </el-form-item>
 
@@ -24,14 +21,16 @@
 export default {
   props: {
     visible: Boolean,
-    expert: Object,
+    production_type: String,
     onCancel: Function,
     onOK: Function
   },
   data() {
     return {
       data: {
-        expert_id: 0,
+        company_id: 0,
+        type: '采购',
+        production_type: '',
         content: '',
         created_by: ''
       }
@@ -42,7 +41,7 @@ export default {
       this.$emit('onCancel')
     },
     handleSubmit() {
-      this.data.expert_id = this.expert.id
+      this.data.production_type = this.production_type
       this.$emit('onOK', this.data)
     }
   },

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加公司" :visible="visible" @close="handleCancel">
+  <el-dialog title="修改采购结果" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" label-width="80px">
       <el-form-item label="公司名称" prop="name">
         <el-input v-model="data.company.name" ref="name" disabled></el-input>

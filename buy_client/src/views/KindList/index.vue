@@ -129,6 +129,7 @@
             })
           } else {
             this.newMethod(obj).then((res) => {
+              console.log(res)
               if (res.data.code === 200) {
                 this.newDialogShow = false
                 this.$message({

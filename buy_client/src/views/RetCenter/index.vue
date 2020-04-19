@@ -91,6 +91,7 @@
 
       <pick-dialog
         :visible="pick_dialog_show"
+        :production_type="activeName"
         :companys="pre_order_companys"
         @onOK="handlePickedOK"
         @onCancel="handlePickedCancel">

@@ -32,6 +32,12 @@
         v-loading="tableLoading"
         @sort-change="onSort">
 
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <HistoryOrder :company_id="props.row.id"></HistoryOrder>
+        </template>
+      </el-table-column>
+
         <el-table-column
           prop="id"
           label="id"
@@ -89,7 +95,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="onUpdateClick(scope.$index, scope.row)">更新</el-button>
+              @click="onUpdateClick(scope.$index, scope.row)">查看</el-button>
             <el-button
             size="mini"
             type="danger"
@@ -137,10 +143,11 @@
   import CreatorDialog from './components/newDialog.vue'
   import UpdateDialog from './components/updateDialog.vue'
   import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
+  import HistoryOrder from '@/views/components/history_order'
 
   export default {
     mixins: [commonTable],
-    components: { CreatorDialog, UpdateDialog },
+    components: { CreatorDialog, UpdateDialog, HistoryOrder },
     data() {
       return {
         //配置minxin种curd api方法：

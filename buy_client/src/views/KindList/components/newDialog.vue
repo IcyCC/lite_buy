@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加模板" :visible="visible" @close="handleCancel">
+  <el-dialog title="添加类目" :visible="visible" @close="handleCancel">
     <el-form :model="data" ref="data" :rules="uploadRules" label-width="80px">
       <el-form-item label="类目名称" prop="name">
         <el-input v-model.trim="data.name" ref="name"></el-input>

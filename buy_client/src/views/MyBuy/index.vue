@@ -58,12 +58,18 @@
         </el-table-column>
 
         <el-table-column
+          prop="comment"
+          label="评价"
+        >
+        </el-table-column>
+
+        <el-table-column
           prop="created_at"
           label="时间"
         >
         </el-table-column>
 
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="300">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -71,7 +77,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="onUpdateClick(scope.$index, scope.row)">更新</el-button>
+              @click="onUpdateClick(scope.$index, scope.row)">修改</el-button>
             <el-button
               size="mini"
               type="danger"

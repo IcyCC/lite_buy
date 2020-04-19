@@ -8,6 +8,9 @@
           <el-form-item label="专家姓名：">
             <el-input v-model="query._like_name" placeholder="请输入专家姓名"></el-input>
           </el-form-item>
+          <el-form-item label="擅长领域：">
+            <el-input v-model="query._search_skilled_in" placeholder="请输入擅长领域"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSearch">查询</el-button>
           </el-form-item>
@@ -26,6 +29,12 @@
         :data="data"
         v-loading="tableLoading"
         @sort-change="onSort">
+
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <HistoryOrder :expert_id="props.row.id"></HistoryOrder>
+        </template>
+      </el-table-column>
 
         <el-table-column
           prop="id"
@@ -64,7 +73,7 @@
             <el-button
               size="mini"
               type="primary"
-              @click="onUpdateClick(scope.$index, scope.row)">更新</el-button>
+              @click="onUpdateClick(scope.$index, scope.row)">查看</el-button>
             <el-button
               size="mini"
               type="danger"
@@ -121,10 +130,11 @@
   import { getDonwloadImageUrl,getUploadImageUrl } from '@/api'
   import OrderDialog from './components/OrderDIalog'
   import { createEmployment } from '@/api/employment'
+  import HistoryOrder from './components/historyOrder'
 
   export default {
     mixins: [commonTable],
-    components: {CreatorDialog, UpdateDialog,OrderDialog},
+    components: {CreatorDialog, UpdateDialog, OrderDialog, HistoryOrder},
     name: "index",
     data() {
       return {
@@ -141,7 +151,8 @@
 
         //配置mixin query
         query: { //条件查询 dict  //api查询条件dict
-          _like_name: undefined
+          _like_name: undefined,
+          _search_skilled_in: undefined
         },
         query_name: '',
         data: [ ], //列表
@@ -154,6 +165,16 @@
 
     },
     methods: {
+      onReset() {
+        this.query = {  //条件查询 dict
+          _like_name: undefined,
+          _search_skilled_in: undefined
+        }
+        this.order = { _order_by: 'id', _desc: true } //order 在
+        this.pages._page = 1
+        this.fetchData()
+      },
+
       onNewClick() {
         this.newDialogShow = true
       },
@@ -180,7 +201,7 @@
 
       onNewOK (data) {
         createExpert(data).then((resp)=>{
-          if(resp.code === 200) {
+          if(resp.data.code === 200) {
             this.$message({
               type: 'success',
               message: '添加成功!'
@@ -200,7 +221,7 @@
 
       onOrderOK(obj) {
         createEmployment(obj).then((resp)=>{
-          if(resp.code === 200) {
+          if(resp.data.code === 200) {
             this.$message({
               type: 'success',
               message: '雇佣成功!'
@@ -218,10 +239,10 @@
 
       // onUpdateOK (index, row, data) {
       //   updateExpert(row.id, data).then((resp)=>{
-      //     if(resp.code === 200) {
+      //     if(resp.data.code === 200) {
       //       this.$message({
       //         type: 'success',
-      //         message: '更新成功!'
+      //         message: '修改成功!'
       //       });
       //     }
       //   }).catch((err) => {

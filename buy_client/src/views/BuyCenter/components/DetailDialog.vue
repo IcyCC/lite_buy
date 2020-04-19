@@ -36,7 +36,7 @@
               <el-card
                 :body-style="{ padding: '0px' }"
                 style="height:300px;">
-                <el-carousel height="200px" width="125px">
+                <el-carousel height="120px" type="card">
                   <el-carousel-item v-for="img in production.imgs" :key="img">
                     <el-image
                       :src="getDonwloadImageUrl(img)"
@@ -47,7 +47,7 @@
                       </div></el-image>
                   </el-carousel-item>
                 </el-carousel>
-                <div style="padding: 14px;">
+                <div style="padding: 14px;overflow:auto;height:180px;">
                   <span>产品名称：{{production.name}}</span>
                   <div class="bottom clearfix">
                     <div class="detail">{{ production.detail }}</div>
@@ -60,7 +60,7 @@
       </el-form>
 
       <el-divider>历史订单</el-divider>
-      <HistoryOrder :company_id="company.id"></HistoryOrder>
+      <HistoryOrder :company_id="company_id"></HistoryOrder>
     </div>
     <span slot="footer" class="dialog-footer">
       <el-button @click="handleCancel">取 消</el-button>
@@ -89,6 +89,11 @@ export default {
     },
     handleOK() {
       this.$emit('onOK')
+    }
+  },
+  computed: {
+    company_id() {
+      return this.company.id
     }
   },
   mounted() {

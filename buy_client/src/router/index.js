@@ -39,6 +39,12 @@ export const constantRoutes = [
   },
 
   {
+    path: '/login',
+    component: () => import('@/views/login'),
+    hidden: true
+  },
+
+  {
     path: '/',
     component: Layout,
     redirect: 'dashboard',
