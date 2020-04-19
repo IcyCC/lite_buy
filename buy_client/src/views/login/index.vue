@@ -112,7 +112,7 @@ export default {
       position: absolute;
       width: 100%;
       height: 100%;
-      background-color: #b61924;
+      background-color: #9f353a;
       background-repeat: no-repeat;
       background-size: cover;
       background-position: 50% 50%;
@@ -171,20 +171,23 @@ $bg: #2d3a4b;
 $dark_gray: #889aa4;
 $light_gray: #eee;
 
+.login-form {
+  position: absolute;
+  top:30%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  width: 520px;
+  max-width: 100%;
+  padding: 160px 35px 0;
+  margin: auto;
+  overflow: hidden;
+}
+
 .login-container {
   min-height: 100%;
   width: 100%;
   background-color: $bg;
   overflow: hidden;
-
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
-  }
 
   .tips {
     font-size: 14px;

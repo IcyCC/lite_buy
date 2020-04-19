@@ -2,13 +2,13 @@
   <div class="app-container">
 
 
-    <div class="app-container">
+    <div class="app-container" v-loading="pageLoading">
       <!-- <div>模板列表</div> -->
         <el-row :gutter="20">
           <el-tabs v-model="activeName" type="card" @tab-click="onTabClick">
             <el-tab-pane v-for="kind in kinds" :key="kind" :label="kind" :name="kind">
 
-              <el-row :gutter="20" style="min-height: 500px">
+              <el-row :gutter="20" style="min-height: 500px" v-loading="tableLoading">
                 <el-col :span="6" v-for="company in data" :key="company.id" style="padding-top: 20px">
                   <el-card
                     class="company-card"
@@ -142,7 +142,8 @@
         order_dialog_show: false,
         selected_companys: [],
         pre_order_companys: [],
-        pick_dialog_show: false
+        pick_dialog_show: false,
+        pageLoading: false
 
       }
     },
@@ -250,12 +251,14 @@
 
     },
     mounted() {
+      this.pageLoading = true
       let params = { _order_by: 'id', _desc: true, _page: 1, _per_page: 30 }
       queryKinds(params).then((res) => {
         res.data.kinds.forEach(k => {
           this.kinds.push(k.name)
         })
         this.activeName = this.kinds[0]
+        this.pageLoading = false
         this.onTabClick()
       })
       
