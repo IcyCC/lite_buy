@@ -8,7 +8,7 @@
       label-position="left"
     >
       <div class="title-container">
-        <h3 class="title">文化用品管理终端</h3>
+        <h3 class="title">非招标采购服务管理平台</h3>
       </div>
 
       <el-form-item prop="password">

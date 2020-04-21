@@ -55,8 +55,8 @@ module.exports = {
       builderOptions: {
         // artifactName : '播放器 v1.0.exe',
         // productName: "播放器",
-         artifactName : '商品采购终端 v1.8.exe',
-         productName: "商品采购终端",
+         artifactName : '非招标采购服务管理平台 v1.8.exe',
+         productName: "非招标采购服务管理平台",
 		 appId: "com.suchang.lite_buy.app",
 		 win: {
 			target: "nsis",
