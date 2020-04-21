@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      title: '文化用品管理终端',
+      title: '非招标采购服务管理平台',
       logo: logo_png
     }
   }

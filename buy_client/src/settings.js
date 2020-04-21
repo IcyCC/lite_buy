@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '招标采购租赁管理系统',
+  title: '非招标采购服务管理平台',
 
   /**
    * @type {boolean} true | false
